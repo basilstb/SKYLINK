@@ -3,7 +3,9 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('tracking.html', views.tracking, name='tracking'),
+    path('tracking/', views.tracking, name='tracking'),
+    path('tracking.html', views.tracking, name='tracking_html'),
+    path('tracking', views.tracking),
     path('api/track/<str:tracking_id>/', views.api_shipment_live, name='api_shipment_live'),
     path('api/update-coordinates/', views.api_update_coordinates, name='api_update_coordinates'),
     path('dashboard/', views.dashboard, name='dashboard'),
