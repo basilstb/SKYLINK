@@ -1,0 +1,656 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Shipment | Link Express Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}?v={% now 'U' %}">
+</head>
+
+<body style="background-color: var(--bg-light);">
+    <nav class="navbar" style="background: rgba(15, 23, 42, 0.95);">
+        <div class="container nav-container">
+            <a href="{% url 'index' %}" class="logo">
+                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+            </a>
+            <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'index' %}#services">Services</a></li>
+                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com"
+                        target="_blank" style="color: var(--accent-color);"><i class="fa-solid fa-envelope"></i> Contact
+                        Us</a></li>
+                <li class="language-dropdown">
+                    <div class="lang-selector">
+                        <i class="fa-solid fa-globe"></i>
+                        <span class="current-lang">English</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8em;"></i>
+                    </div>
+                    <ul class="lang-menu" style="max-height: 300px; overflow-y: auto;">
+                        <li onclick="changeLang('English')">English</li>
+                        <li onclick="changeLang('Russian')">Русский</li>
+                        <li onclick="changeLang('German')">Deutsch</li>
+                        <li onclick="changeLang('Spanish')">Español</li>
+                        <li onclick="changeLang('French')">Français</li>
+                        <li onclick="changeLang('Chinese')">中文</li>
+                        <li onclick="changeLang('Arabic')">العربية</li>
+                        <li onclick="changeLang('Hindi')">हिन्दी</li>
+                        <li onclick="changeLang('Portuguese')">Português</li>
+                        <li onclick="changeLang('Japanese')">日本語</li>
+                        <li onclick="changeLang('Korean')">한국어</li>
+                        <li onclick="changeLang('Italian')">Italiano</li>
+                        <li onclick="changeLang('Dutch')">Nederlands</li>
+                        <li onclick="changeLang('Turkish')">Türkçe</li>
+                        <li onclick="changeLang('Vietnamese')">Tiếng Việt</li>
+                        <li onclick="changeLang('Polish')">Polski</li>
+                        <li onclick="changeLang('Indonesian')">Bahasa Indonesia</li>
+                        <li onclick="changeLang('Thai')">ไทย</li>
+                        <li onclick="changeLang('Swedish')">Svenska</li>
+                        <li onclick="changeLang('Greek')">Ελληνικά</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container" style="padding-top: 120px; min-height: 80vh;">
+        <div class="section-header">
+            <h2>Tracking Results</h2>
+            <p id="tracking-id-display" style="font-size: 1.2rem; font-weight: 600; color: var(--accent-color);">
+                {% if tracking_id %}Shipment ID: {{ tracking_id }}{% else %}No Tracking Number Provided{% endif %}
+            </p>
+        </div>
+        <div id="tracking-result-container">
+            {% if tracking_id %}
+            {% if shipment %}
+            <!-- Header Section -->
+            <div class="tracking-summary-card">
+                <div class="tracking-header-info">
+                    <div class="tracking-number-section">
+
+                        <div class="barcode-placeholder">
+                            <div class="barcode-bars"></div>
+
+                        </div>
+                    </div>
+                    <div class="tracking-status-section">
+                        <span class="status-badge status-{{ shipment.status }}">{{ shipment.get_status_display }}</span>
+                    </div>
+                </div>
+                <!-- Progress Bar -->
+                <div class="tracking-progress-wrapper">
+                    <div class="progress-track">
+                        <div class="progress-fill status-{{ shipment.status }}"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div
+                            class="step {% if shipment.status in 'label_created,in_transit,arrived,delivered' %}active{% endif %}">
+                            <div class="step-icon"><i class="fa-solid fa-file-invoice"></i></div>
+                            <span>Label Created</span>
+                        </div>
+                        <div class="step {% if shipment.status in 'in_transit,arrived,delivered' %}active{% endif %}">
+                            <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                            <span>In Transit</span>
+                        </div>
+                        <div class="step {% if shipment.status in 'arrived,delivered' %}active{% endif %}">
+                            <div class="step-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <span>Arrived at Facility</span>
+                        </div>
+                        <div class="step {% if shipment.status == 'delivered' %}active{% endif %}">
+                            <div class="step-icon"><i class="fa-solid fa-box-open"></i></div>
+                            <span>Delivered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content Grid -->
+            <div class="tracking-grid">
+                <div class="tracking-main">
+                    <!-- Live GPS Interactive Map Section -->
+                    <div class="live-map-card">
+                        <div class="live-map-header">
+                            <div class="map-title-group">
+                                <div class="live-pulse-badge">
+                                    <span class="pulse-ring"></span>
+                                    <span class="pulse-dot"></span>
+                                    <strong>LIVE GPS</strong>
+                                </div>
+                                <span class="live-status-pill" id="live-transit-mode"><i class="fa-solid fa-satellite-dish"></i> Live Satellite Feed</span>
+                            </div>
+                            <div class="map-actions-group">
+                                <button type="button" class="btn-map-control" id="btn-toggle-pan" title="Toggle Map Pan / Page Scroll">
+                                    <i class="fa-solid fa-hand-pointer"></i> <span id="toggle-pan-text">Explore</span>
+                                </button>
+                                <button type="button" class="btn-map-control" id="btn-toggle-size" title="Expand / Shrink Map View">
+                                    <i class="fa-solid fa-expand" id="toggle-size-icon"></i> <span id="toggle-size-text">Expand</span>
+                                </button>
+                                <button type="button" class="btn-map-control" id="btn-recenter" title="Recenter on Package">
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+                                </button>
+                                <button type="button" class="btn-map-control" id="btn-toggle-collapse" title="Collapse / Show Map">
+                                    <i class="fa-solid fa-chevron-up" id="collapse-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Compact Map Viewport (Small footprint so page body is easily scrollable) -->
+                        <div class="map-viewport-wrapper" id="map-viewport-wrapper" style="position: relative; width: 100%; height: 130px !important; min-height: 130px !important; overflow: hidden;">
+                            <!-- Leaflet Interactive Map Container (Scroll-safe by default) -->
+                            <div id="live-map" class="scroll-safe" data-tracking-id="{{ shipment.tracking_number }}" style="width: 100%; height: 100%; min-height: 130px !important;"></div>
+                            
+                            <!-- Subtle non-blocking status hint -->
+                            <div class="map-scroll-hint" id="map-scroll-hint">
+                                <i class="fa-solid fa-arrows-up-down"></i> <span>Scroll-safe</span>
+                            </div>
+                        </div>
+
+                        <!-- Telemetry Bottom Bar -->
+                        <div class="map-telemetry-bar">
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">CURRENT LOCATION</span>
+                                <span class="telemetry-val" id="telemetry-location">
+                                    <i class="fa-solid fa-location-dot" style="color: #f97316;"></i>
+                                    {{ shipment.current_location_name|default:shipment.history.first.location|default:shipment.sender_city }}
+                                </span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">ESTIMATED ARRIVAL</span>
+                                <span class="telemetry-val" id="telemetry-arrival">
+                                    <i class="fa-solid fa-calendar-day" style="color: #3b82f6;"></i>
+                                    {{ shipment.arrival_date|default:"In Transit" }}
+                                </span>
+                            </div>
+                            <div class="telemetry-item">
+                                <span class="telemetry-label">LIVE STATUS</span>
+                                <span class="telemetry-val" id="telemetry-status" style="color: #10b981;">
+                                    <i class="fa-solid fa-truck-fast"></i>
+                                    {{ shipment.get_status_display }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Timeline -->
+                    <div class="detailed-timeline">
+                        <h3>Tracking History</h3>
+                        <div class="timeline">
+                            {% for event in shipment.history.all %}
+                            <div class="timeline-item {% if forloop.first %}completed{% endif %}">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <h4>{{ event.status }}</h4>
+                                    <p><i class="fa-solid fa-location-dot"></i> {{ event.location }}</p>
+                                    <span class="timeline-date">{{ event.timestamp|date:"M d, Y - H:i" }}</span>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <p style="color: var(--text-dark); padding: 20px 0;">No tracking events available yet.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="tracking-sidebar">
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-action" onclick="window.print()"><i class="fa-solid fa-print"></i> Print
+                            Details</button>
+                        <button class="btn-action"><i class="fa-solid fa-bell"></i> Get Updates</button>
+                    </div>
+                    <!-- Shipment Details -->
+                    <div class="sidebar-card">
+                        <h3>Shipment Details</h3>
+                        <ul class="details-list">
+                            <li><span>Service Type:</span> <strong>Express Air</strong></li>
+
+                            <li><span>Dimensions:</span> <strong>40x30x20 cm</strong></li>
+                            <li><span>Pieces:</span> <strong>1</strong></li>
+                            <li><span>Packaging:</span> <strong>Standard Box</strong></li>
+                        </ul>
+                    </div>
+                    <!-- Sender / Receiver -->
+                    <div class="sidebar-card">
+                        <h3>Route Information</h3>
+                        <div class="route-info">
+                            <div class="route-point">
+                                <i class="fa-solid fa-building-circle-arrow-right"></i>
+                                <div>
+                                    <h4>From</h4>
+                                    <p>{{ shipment.sender_name }}</p>
+                                    <p>{{ shipment.sender_city }}, {{ shipment.sender_country }}</p>
+                                </div>
+                            </div>
+                            <div class="route-point">
+                                <i class="fa-solid fa-house-circle-check"></i>
+                                <div>
+                                    <h4>To</h4>
+                                    <p>{{ shipment.receiver_name }}</p>
+                                    <p>{{ shipment.receiver_address }}</p>
+                                    <p>{{ shipment.receiver_phone }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div
+                style="text-align: center; padding: 50px; background: #fff; border-radius: 10px; animation: fadeInUp 0.5s ease;">
+                <i class="fa-solid fa-circle-exclamation"
+                    style="font-size: 3rem; color: #ef4444; margin-bottom: 20px;"></i>
+                <h2>Tracking Number Not Found</h2>
+                <p>We couldn't find any details for <strong>{{ tracking_id }}</strong>. Please check the number and try
+                    again.</p>
+                <a href="{% url 'index' %}" class="btn-primary" style="display: inline-flex; margin-top: 20px;">Back to
+                    Home</a>
+            </div>
+            {% endif %}
+            {% else %}
+            <p>Please enter a tracking number on the home page.</p>
+            {% endif %}
+        </div>
+    </div>
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+            </div>
+            <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
+
+        </div>
+    </footer>
+    <script src="{% static 'script.js' %}"></script>
+    {% verbatim %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('tracking-result-container');
+            const displayEl = document.getElementById('tracking-id-display');
+            
+            // Check if we are actually tracking something
+            if (displayEl && displayEl.textContent.includes('Shipment ID:')) {
+                // Wrap the original content in a div and hide it for initial loading effect
+                const originalContent = document.createElement('div');
+                originalContent.style.display = 'none';
+                while (container.firstChild) {
+                    originalContent.appendChild(container.firstChild);
+                }
+                const loader = document.createElement('div');
+                loader.innerHTML = `
+                    <div id="loading-state" style="text-align: center; padding: 60px 20px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); animation: fadeInUp 0.5s ease;">
+                        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 4rem; color: var(--accent-color); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.8rem;">Connecting Live Satellite Network...</h2>
+                        <p style="color: var(--text-dark); font-size: 1.2rem; font-weight: 600;">Locking GPS: <span id="loading-percentage" style="color: var(--accent-color);">0</span>%</p>
+                        <div style="width: 100%; max-width: 400px; height: 6px; background: #e2e8f0; border-radius: 10px; margin: 20px auto 0; overflow: hidden;">
+                            <div id="loading-bar" style="height: 100%; width: 0%; background: var(--accent-color); transition: width 0.1s ease;"></div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(loader);
+                container.appendChild(originalContent);
+                let progress = 0;
+                const percentageSpan = document.getElementById('loading-percentage');
+                const loadingBar = document.getElementById('loading-bar');
+                const interval = setInterval(() => {
+                    progress += Math.floor(Math.random() * 8) + 4;
+                    if (progress > 100) progress = 100;
+                    percentageSpan.textContent = progress;
+                    loadingBar.style.width = `${progress}%`;
+                    if (progress === 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            loader.remove();
+                            originalContent.style.display = 'block';
+                            // Initialize Live Tracking Leaflet Map
+                            initLiveTracking();
+                        }, 350);
+                    }
+                }, 180);
+            } else {
+                initLiveTracking();
+            }
+        });
+
+        // Toast notification helper
+        function showLiveToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'live-toast';
+            toast.innerHTML = `<i class="fa-solid fa-satellite-dish" style="color: #10b981;"></i> <span>${message}</span>`;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.remove(); }, 4000);
+        }
+
+        // Live Tracking Map and Real-Time Synchronization Engine
+        async function initLiveTracking() {
+            const mapEl = document.getElementById('live-map');
+            if (!mapEl) return;
+            const trackingId = mapEl.dataset.trackingId;
+            if (!trackingId) return;
+
+            // Prevent duplicate initialization
+            if (mapEl._leaflet_id) {
+                return;
+            }
+
+            // Ensure Leaflet is loaded
+            if (typeof L === 'undefined') {
+                console.error("Leaflet library not ready");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/track/${encodeURIComponent(trackingId)}/`);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (!data.success) return;
+
+                const originCoords = [data.origin.lat || 51.5074, data.origin.lng || -0.1278];
+                const destCoords = [data.destination.lat || 40.7128, data.destination.lng || -74.0060];
+                let currentCoords = [data.current_coords.lat || originCoords[0], data.current_coords.lng || originCoords[1]];
+
+                // Check if user is on mobile/touch device
+                const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+                // Initialize Leaflet Map - non-intrusive by default so page scrolling is 100% natural
+                const map = L.map('live-map', {
+                    zoomControl: false,
+                    attributionControl: false,
+                    scrollWheelZoom: false,
+                    dragging: false,
+                    touchZoom: false,
+                    doubleClickZoom: false,
+                    boxZoom: false,
+                    tap: false
+                }).setView(currentCoords, 5);
+
+                // OpenStreetMap / CartoDB Voyager tiles (Crisp, high-performance, free CDN)
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                    maxZoom: 19,
+                    subdomains: 'abcd',
+                }).addTo(map);
+
+                // Origin Custom Pin
+                const originIcon = L.divIcon({
+                    className: 'custom-pin-marker',
+                    html: '<div class="pin-bubble origin" title="Origin: ' + (data.origin.city || '') + '"><i class="fa-solid fa-warehouse"></i></div>',
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 18],
+                    popupAnchor: [0, -18]
+                });
+                const originMarker = L.marker(originCoords, { icon: originIcon }).addTo(map);
+                originMarker.bindPopup(`<b>Origin Hub</b><br>${data.origin.name || ''}<br>${data.origin.city || ''}, ${data.origin.country || ''}`);
+
+                // Destination Custom Pin
+                const destIcon = L.divIcon({
+                    className: 'custom-pin-marker',
+                    html: '<div class="pin-bubble destination" title="Destination"><i class="fa-solid fa-house-circle-check"></i></div>',
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 18],
+                    popupAnchor: [0, -18]
+                });
+                const destMarker = L.marker(destCoords, { icon: destIcon }).addTo(map);
+                destMarker.bindPopup(`<b>Delivery Destination</b><br>${data.destination.name || ''}<br>${data.destination.address || ''}`);
+
+                // Vehicle Live Marker with Pulsing Radar Ring
+                const isAirFreight = (data.events && data.events.some(e => e.location && (e.location.toLowerCase().includes('flight') || e.location.toLowerCase().includes('air'))));
+                const vehicleIconHtml = `
+                    <div class="pin-bubble vehicle">
+                        <div class="vehicle-pulse-ring"></div>
+                        <i class="fa-solid ${isAirFreight ? 'fa-plane' : 'fa-truck-fast'}"></i>
+                    </div>
+                `;
+                const vehicleIcon = L.divIcon({
+                    className: 'custom-pin-marker',
+                    html: vehicleIconHtml,
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 18],
+                    popupAnchor: [0, -18]
+                });
+                const vehicleMarker = L.marker(currentCoords, { icon: vehicleIcon, zIndexOffset: 1000 }).addTo(map);
+                vehicleMarker.bindPopup(`<b>Current Location</b><br>${data.current_location || ''}<br>Status: <strong>${data.status_display || data.status}</strong>`);
+
+                // Collect waypoints for route polyline
+                const waypoints = [originCoords];
+                if (data.events && Array.isArray(data.events)) {
+                    const chronologicalEvents = [...data.events].reverse();
+                    chronologicalEvents.forEach(ev => {
+                        if (ev.lat && ev.lng && (ev.lat !== originCoords[0] || ev.lng !== originCoords[1])) {
+                            waypoints.push([ev.lat, ev.lng]);
+                        }
+                    });
+                }
+                if (destCoords[0] !== originCoords[0] || destCoords[1] !== originCoords[1]) {
+                    waypoints.push(destCoords);
+                }
+
+                // Draw route line
+                if (waypoints.length > 1) {
+                    const routeLine = L.polyline(waypoints, {
+                        color: '#2563eb',
+                        weight: 4,
+                        dashArray: '8, 8',
+                        opacity: 0.8,
+                        lineJoin: 'round'
+                    }).addTo(map);
+
+                    try {
+                        if (routeLine.getBounds && routeLine.getBounds().isValid()) {
+                            map.fitBounds(routeLine.getBounds(), { padding: [15, 15], maxZoom: 8, minZoom: 2 });
+                        } else {
+                            map.setView(currentCoords, 6);
+                        }
+                    } catch(e) {
+                        map.setView(currentCoords, 6);
+                    }
+                } else {
+                    map.setView(currentCoords, 6);
+                }
+
+                // Invalidate size multiple times to ensure full canvas rendering
+                setTimeout(() => { map.invalidateSize(); }, 100);
+                setTimeout(() => { map.invalidateSize(); }, 350);
+                setTimeout(() => { map.invalidateSize(); }, 800);
+                setTimeout(() => { map.invalidateSize(); }, 1500);
+                window.addEventListener('resize', () => { map.invalidateSize(); });
+
+                // Map Touch/Scroll Mode Handler (Explore vs Scroll-Safe)
+                const btnTogglePan = document.getElementById('btn-toggle-pan');
+                const scrollHint = document.getElementById('map-scroll-hint');
+                let mapUnlocked = false;
+
+                function setMapInteractivity(active) {
+                    mapUnlocked = active;
+                    if (mapUnlocked) {
+                        mapEl.classList.remove('scroll-safe');
+                        map.dragging.enable();
+                        map.touchZoom.enable();
+                        map.scrollWheelZoom.enable();
+                        if (btnTogglePan) {
+                            btnTogglePan.innerHTML = `<i class="fa-solid fa-lock"></i> <span>Lock Scroll</span>`;
+                            btnTogglePan.style.background = 'var(--accent-color)';
+                        }
+                        if (scrollHint) {
+                            scrollHint.innerHTML = `<i class="fa-solid fa-hand-pointer"></i> <span>Interactive</span>`;
+                            scrollHint.style.background = 'rgba(239, 68, 68, 0.85)';
+                        }
+                        showLiveToast('Map active: drag or zoom. Tap Lock Scroll when done.');
+                    } else {
+                        mapEl.classList.add('scroll-safe');
+                        map.dragging.disable();
+                        map.touchZoom.disable();
+                        map.scrollWheelZoom.disable();
+                        if (btnTogglePan) {
+                            btnTogglePan.innerHTML = `<i class="fa-solid fa-hand-pointer"></i> <span>Explore</span>`;
+                            btnTogglePan.style.background = '';
+                        }
+                        if (scrollHint) {
+                            scrollHint.innerHTML = `<i class="fa-solid fa-arrows-up-down"></i> <span>Scroll-safe</span>`;
+                            scrollHint.style.background = 'rgba(15, 23, 42, 0.75)';
+                        }
+                        showLiveToast('Scroll locked: swipe down freely to see details.');
+                    }
+                }
+
+                if (btnTogglePan) {
+                    btnTogglePan.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        setMapInteractivity(!mapUnlocked);
+                    });
+                }
+
+                // Expand / Compact Viewport Toggle
+                const btnToggleSize = document.getElementById('btn-toggle-size');
+                const viewportWrapper = document.getElementById('map-viewport-wrapper');
+                let mapExpanded = false;
+
+                if (btnToggleSize && viewportWrapper) {
+                    btnToggleSize.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        mapExpanded = !mapExpanded;
+                        if (mapExpanded) {
+                            viewportWrapper.classList.add('expanded');
+                            btnToggleSize.innerHTML = `<i class="fa-solid fa-compress"></i> <span>Compact</span>`;
+                            showLiveToast('Map view expanded.');
+                        } else {
+                            viewportWrapper.classList.remove('expanded');
+                            btnToggleSize.innerHTML = `<i class="fa-solid fa-expand"></i> <span>Expand</span>`;
+                            showLiveToast('Map compact: easier page scrolling.');
+                        }
+                        setTimeout(() => { map.invalidateSize(); }, 360);
+                    });
+                }
+
+                // Full Collapse / Show Map Toggle
+                const btnToggleCollapse = document.getElementById('btn-toggle-collapse');
+                const telemetryBar = document.querySelector('.map-telemetry-bar');
+                let mapCollapsed = false;
+
+                if (btnToggleCollapse && viewportWrapper) {
+                    btnToggleCollapse.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        mapCollapsed = !mapCollapsed;
+                        if (mapCollapsed) {
+                            viewportWrapper.classList.add('collapsed');
+                            if (telemetryBar) telemetryBar.classList.add('collapsed');
+                            btnToggleCollapse.innerHTML = `<i class="fa-solid fa-chevron-down"></i>`;
+                            btnToggleCollapse.title = "Show Map";
+                            showLiveToast('Map collapsed: full page body visible.');
+                        } else {
+                            viewportWrapper.classList.remove('collapsed');
+                            if (telemetryBar) telemetryBar.classList.remove('collapsed');
+                            btnToggleCollapse.innerHTML = `<i class="fa-solid fa-chevron-up"></i>`;
+                            btnToggleCollapse.title = "Hide Map";
+                            showLiveToast('Map restored.');
+                            setTimeout(() => { map.invalidateSize(); }, 360);
+                        }
+                    });
+                }
+
+                // Recenter button
+                const btnRecenter = document.getElementById('btn-recenter');
+                if (btnRecenter) {
+                    btnRecenter.addEventListener('click', () => {
+                        map.flyTo(vehicleMarker.getLatLng(), Math.max(map.getZoom(), 7), { duration: 1.0 });
+                        vehicleMarker.openPopup();
+                    });
+                }
+
+                // Real-time synchronization state
+                let lastLat = data.current_coords.lat;
+                let lastLng = data.current_coords.lng;
+                let lastStatus = data.status;
+                let lastEventsCount = data.events.length;
+
+                // Live Polling every 5 seconds (PythonAnywhere Free Tier friendly)
+                setInterval(async () => {
+                    try {
+                        const syncRes = await fetch(`/api/track/${encodeURIComponent(trackingId)}/`);
+                        if (!syncRes.ok) return;
+                        const syncData = await syncRes.json();
+                        if (!syncData.success) return;
+
+                        // Update sync indicator
+                        const syncInd = document.getElementById('map-last-sync');
+                        if (syncInd) {
+                            const now = new Date();
+                            syncInd.innerHTML = `<i class="fa-solid fa-circle" style="color: #10b981; font-size: 0.6rem;"></i> Live (${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })})`;
+                        }
+
+                        const newLat = syncData.current_coords.lat;
+                        const newLng = syncData.current_coords.lng;
+                        const hasMoved = (newLat !== lastLat || newLng !== lastLng);
+                        const statusChanged = (syncData.status !== lastStatus);
+                        const newEventsAdded = (syncData.events.length > lastEventsCount);
+
+                        if (hasMoved || statusChanged || newEventsAdded) {
+                            // Smoothly move vehicle marker
+                            vehicleMarker.setLatLng([newLat, newLng]);
+                            vehicleMarker.getPopup().setContent(`<b>Current Location</b><br>${syncData.current_location}<br>Status: <strong>${syncData.status_display}</strong>`);
+
+                            // Update telemetry values
+                            const teleLoc = document.getElementById('telemetry-location');
+                            if (teleLoc) teleLoc.innerHTML = `<i class="fa-solid fa-location-dot" style="color: #f97316;"></i> ${syncData.current_location}`;
+
+                            const teleStat = document.getElementById('telemetry-status');
+                            if (teleStat) teleStat.innerHTML = `<i class="fa-solid fa-truck-fast"></i> ${syncData.status_display}`;
+
+                            // Update status badge on page
+                            const badge = document.querySelector('.tracking-status-section .status-badge');
+                            if (badge) {
+                                badge.textContent = syncData.status_display;
+                                badge.className = `status-badge status-${syncData.status}`;
+                            }
+
+                            // Update progress bar
+                            const fill = document.querySelector('.progress-fill');
+                            if (fill) {
+                                fill.className = `progress-fill status-${syncData.status}`;
+                            }
+
+                            // If new events appeared, update the timeline list live
+                            if (newEventsAdded) {
+                                const timelineList = document.querySelector('.detailed-timeline .timeline');
+                                if (timelineList && syncData.events.length > 0) {
+                                    let html = '';
+                                    syncData.events.forEach((ev, idx) => {
+                                        html += `
+                                            <div class="timeline-item ${idx === 0 ? 'completed' : ''}" style="${idx === 0 ? 'animation: fadeInUp 0.4s ease;' : ''}">
+                                                <div class="timeline-dot"></div>
+                                                <div class="timeline-content">
+                                                    <h4>${ev.status}</h4>
+                                                    <p><i class="fa-solid fa-location-dot"></i> ${ev.location}</p>
+                                                    <span class="timeline-date">${ev.timestamp}</span>
+                                                </div>
+                                            </div>
+                                        `;
+                                    });
+                                    timelineList.innerHTML = html;
+                                }
+                            }
+
+                            // Pop toast notification
+                            showLiveToast(`GPS Update: Package is ${syncData.status_display} at ${syncData.current_location}`);
+
+                            lastLat = newLat;
+                            lastLng = newLng;
+                            lastStatus = syncData.status;
+                            lastEventsCount = syncData.events.length;
+                        }
+                    } catch (e) {
+                        console.error("Live tracking sync failed:", e);
+                    }
+                }, 5000);
+
+            } catch (err) {
+                console.error("Error setting up live map:", err);
+            }
+        }
+    </script>
+    {% endverbatim %}
+</body>
+
+</html>

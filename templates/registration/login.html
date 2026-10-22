@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Express Logistics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body
+    style="background-color: var(--bg-light); display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    <div class="tracking-box" style="width: 100%; max-width: 400px; margin: 0; padding: 40px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <a href="{% url 'index' %}" class="logo" style="color: var(--primary-color); font-size: 1.8rem;">
+                <i class="fa-solid fa-truck-fast"></i> Express<span>Admin</span>
+            </a>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 20px; color: var(--text-dark);">Secure Login</h2>
+
+        {% if form.errors %}
+        <p style="color: #ef4444; text-align: center; margin-bottom: 15px;">Your username and password didn't match.
+            Please try again.</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div style="margin-bottom: 20px;">
+                <label
+                    style="display: block; margin-bottom: 5px; color: var(--text-dark); font-weight: 600;">Username</label>
+                <input type="text" name="username" required
+                    style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            </div>
+            <div style="margin-bottom: 25px;">
+                <label
+                    style="display: block; margin-bottom: 5px; color: var(--text-dark); font-weight: 600;">Password</label>
+                <input type="password" name="password" required
+                    style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Login to
+                Dashboard</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </div>
+</body>
+
+</html>

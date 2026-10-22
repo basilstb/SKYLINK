@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Express Service | Fast & Secure Delivery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="{% url 'index' %}" class="logo">
+                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+            </a>
+                        <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="{% url 'index' %}" class="active">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com"
+                        target="_blank" style="color: var(--accent-color);"><i class="fa-solid fa-envelope"></i> Contact
+                        Us</a></li>
+                <li class="language-dropdown">
+                    <div class="lang-selector">
+                        <i class="fa-solid fa-globe"></i>
+                        <span class="current-lang">English</span>
+                        <i class="fa-solid fa-chevron-down" style="font-size: 0.8em;"></i>
+                    </div>
+                    <ul class="lang-menu" style="max-height: 300px; overflow-y: auto;">
+                        <li onclick="changeLang('English')">English</li>
+                        <li onclick="changeLang('Russian')">Русский</li>
+                        <li onclick="changeLang('German')">Deutsch</li>
+                        <li onclick="changeLang('Spanish')">Español</li>
+                        <li onclick="changeLang('French')">Français</li>
+                        <li onclick="changeLang('Chinese')">中文</li>
+                        <li onclick="changeLang('Arabic')">العربية</li>
+                        <li onclick="changeLang('Hindi')">हिन्दी</li>
+                        <li onclick="changeLang('Portuguese')">Português</li>
+                        <li onclick="changeLang('Japanese')">日本語</li>
+                        <li onclick="changeLang('Korean')">한국어</li>
+                        <li onclick="changeLang('Italian')">Italiano</li>
+                        <li onclick="changeLang('Dutch')">Nederlands</li>
+                        <li onclick="changeLang('Turkish')">Türkçe</li>
+                        <li onclick="changeLang('Vietnamese')">Tiếng Việt</li>
+                        <li onclick="changeLang('Polish')">Polski</li>
+                        <li onclick="changeLang('Indonesian')">Bahasa Indonesia</li>
+                        <li onclick="changeLang('Thai')">ไทย</li>
+                        <li onclick="changeLang('Swedish')">Svenska</li>
+                        <li onclick="changeLang('Greek')">Ελληνικά</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1>Global Delivery, <span>Simplified.</span></h1>
+            <p>Track your packages in real-time with our state-of-the-art logistics network.</p>
+
+            <div class="tracking-box">
+                <h2>Track Your Shipment</h2>
+                <form id="tracking-form" action="{% url 'tracking' %}" method="GET">
+                    <div class="input-group">
+                        <i class="fa-solid fa-box"></i>
+                        <input type="text" name="id" id="tracking-number"
+                            placeholder="Enter Tracking Number (e.g., EXL-123456)" required>
+                        <button type="submit" class="btn-primary">Track Package <i
+                                class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Premium Services</h2>
+                <p>We offer a wide range of logistics solutions tailored to your needs.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="card-img">
+                        <img src="{% static 'assets/express_plane.png' %}" alt="Air Freight">
+                    </div>
+                    <div class="card-content">
+                        <h3>Air Freight</h3>
+                        <p>Fast and reliable air transport for urgent global deliveries.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-img">
+                        <img src="{% static 'assets/express_ship.png' %}" alt="Ocean Freight">
+                    </div>
+                    <div class="card-content">
+                        <h3>Ocean Freight</h3>
+                        <p>Cost-effective shipping solutions for large cargo volumes.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-img">
+                        <img src="{% static 'assets/express_van.png' %}" alt="Ground Delivery">
+                    </div>
+                    <div class="card-content">
+                        <h3>Ground Delivery</h3>
+                        <p>Efficient local and regional distribution networks.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="operations" class="services" style="background: var(--bg-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Operations</h2>
+                <p>A real-time look at our logistics network in action.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="card-img">
+                        <img src="{% static 'assets/express_package.png' %}" alt="Premium Packaging">
+                    </div>
+                    <div class="card-content">
+                        <h3>Secure Packaging</h3>
+                        <p>Every item is handled with the utmost care and precision.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-img">
+                        <img src="{% static 'assets/express_carrying.png' %}" alt="Warehouse Operations">
+                    </div>
+                    <div class="card-content">
+                        <h3>Efficient Processing</h3>
+                        <p>Our team works around the clock to process your shipments.</p>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="card-img">
+                        <img src="{% static 'assets/express_delivering.png' %}" alt="Last Mile Delivery">
+                    </div>
+                    <div class="card-content">
+                        <h3>Last-Mile Delivery</h3>
+                        <p>Friendly, professional delivery right to your front door.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+            </div>
+            <div class="contact-info" style="margin: 15px 0;">
+                <p><i class="fa-solid fa-envelope" style="color: var(--accent-color); margin-right: 8px;"></i> <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com"
+                        target="_blank"
+                        style="color: var(--text-light); text-decoration: none;">linkexpressservice@gmail.com</a></p>
+            </div>
+            <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+
+</html>
