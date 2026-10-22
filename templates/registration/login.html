@@ -5,48 +5,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | Express Logistics</title>
+    <title>Admin Login | Link Express Service</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}?v={% now 'U' %}">
 </head>
 
-<body
-    style="background-color: var(--bg-light); display: flex; align-items: center; justify-content: center; min-height: 100vh;">
-    <div class="tracking-box" style="width: 100%; max-width: 400px; margin: 0; padding: 40px;">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <a href="{% url 'index' %}" class="logo" style="color: var(--primary-color); font-size: 1.8rem;">
-                <i class="fa-solid fa-truck-fast"></i> Express<span>Admin</span>
+<body style="background: radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15), transparent 45%), radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.2), transparent 50%), linear-gradient(135deg, #070a12 0%, #0b0f19 55%, #0f172a 100%); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
+    
+    <div class="tracking-box" style="width: 100%; max-width: 440px; margin: 0; padding: 45px 35px; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 24px; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6), 0 0 35px rgba(99, 102, 241, 0.2); backdrop-filter: blur(20px);">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <a href="{% url 'index' %}" class="logo" style="font-size: 2rem; justify-content: center; text-decoration: none;">
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
             </a>
+            <div style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; color: #94a3b8; background: rgba(255, 255, 255, 0.08); padding: 4px 12px; border-radius: 20px; margin-top: 10px;">
+                <span class="pulse-dot" style="background-color: #06b6d4; width: 6px; height: 6px;"></span>
+                <span>SECURE ADMINISTRATIVE GATEWAY</span>
+            </div>
         </div>
 
-        <h2 style="text-align: center; margin-bottom: 20px; color: var(--text-dark);">Secure Login</h2>
+        <h2 style="text-align: center; margin-bottom: 25px; color: #ffffff; font-weight: 700; font-size: 1.5rem;">Logistics Portal Login</h2>
 
         {% if form.errors %}
-        <p style="color: #ef4444; text-align: center; margin-bottom: 15px;">Your username and password didn't match.
-            Please try again.</p>
+        <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 20px; font-size: 0.9rem;">
+            <i class="fa-solid fa-circle-exclamation"></i> Invalid credentials. Please verify your login details.
+        </div>
         {% endif %}
 
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div style="margin-bottom: 20px;">
-                <label
-                    style="display: block; margin-bottom: 5px; color: var(--text-dark); font-weight: 600;">Username</label>
-                <input type="text" name="username" required
-                    style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                <label style="display: block; margin-bottom: 6px; color: #e2e8f0; font-weight: 600; font-size: 0.9rem;">Administrator Username</label>
+                <div style="position: relative;">
+                    <input type="text" name="username" required autocomplete="username"
+                        style="width: 100%; padding: 14px 16px; background: rgba(11, 15, 25, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #ffffff; font-size: 1rem; outline: none; transition: all 0.2s ease;">
+                </div>
             </div>
             <div style="margin-bottom: 25px;">
-                <label
-                    style="display: block; margin-bottom: 5px; color: var(--text-dark); font-weight: 600;">Password</label>
-                <input type="password" name="password" required
-                    style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                <label style="display: block; margin-bottom: 6px; color: #e2e8f0; font-weight: 600; font-size: 0.9rem;">Security Key / Password</label>
+                <div style="position: relative;">
+                    <input type="password" name="password" required autocomplete="current-password"
+                        style="width: 100%; padding: 14px 16px; background: rgba(11, 15, 25, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: #ffffff; font-size: 1rem; outline: none; transition: all 0.2s ease;">
+                </div>
             </div>
-            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Login to
-                Dashboard</button>
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 15px; font-size: 1.05rem;">
+                <span>Sign In to Dashboard</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
             <input type="hidden" name="next" value="{{ next }}" />
         </form>
+
+        <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+            <a href="{% url 'index' %}" style="color: #94a3b8; font-size: 0.85rem; text-decoration: none; transition: color 0.2s ease;">
+                <i class="fa-solid fa-arrow-left"></i> Return to Public Site
+            </a>
+        </div>
     </div>
 </body>
 

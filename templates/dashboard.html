@@ -14,10 +14,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body style="background-color: var(--bg-light);">
-    <nav class="navbar" style="background: rgba(2, 44, 34, 0.96);">
+    <nav class="navbar" style="background: rgba(11, 15, 25, 0.96); border-bottom: 1px solid rgba(99, 102, 241, 0.25);">
         <div class="container nav-container">
             <a href="{% url 'index' %}" class="logo">
-                <i class="fa-solid fa-truck-fast"></i> Express<span>Admin</span>
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Express<span class="gradient-brand">Admin</span>
             </a>
             <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-links">
@@ -35,7 +35,46 @@
     <div class="container" style="padding-top: 120px; min-height: 80vh;">
         <div class="section-header">
             <h2>Logistics Control Panel</h2>
-            <p>Manage shipments and update tracking statuses.</p>
+            <p>Manage enterprise consignments, GPS waypoints, and automated customs status.</p>
+        </div>
+
+        <!-- Fintech KPI Metrics Strip -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 35px;">
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px -2px rgba(11, 15, 25, 0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Active Consignments</span>
+                    <i class="fa-solid fa-boxes-stacked" style="color: #6366f1; font-size: 1.2rem;"></i>
+                </div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: #0f172a;">{{ shipments.count }}</div>
+                <div style="font-size: 0.78rem; color: #10b981; font-weight: 600; margin-top: 4px;"><i class="fa-solid fa-arrow-trend-up"></i> Live Telemetry Active</div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px -2px rgba(11, 15, 25, 0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Global Satellites</span>
+                    <i class="fa-solid fa-satellite" style="color: #06b6d4; font-size: 1.2rem;"></i>
+                </div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: #0f172a;">24 / 24</div>
+                <div style="font-size: 0.78rem; color: #06b6d4; font-weight: 600; margin-top: 4px;"><i class="fa-solid fa-check"></i> Constellation Online</div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px -2px rgba(11, 15, 25, 0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Customs EDI Link</span>
+                    <i class="fa-solid fa-shield-halved" style="color: #10b981; font-size: 1.2rem;"></i>
+                </div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: #0f172a;">100%</div>
+                <div style="font-size: 0.78rem; color: #10b981; font-weight: 600; margin-top: 4px;"><i class="fa-solid fa-bolt"></i> Instant Pre-Clearance</div>
+            </div>
+
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px -2px rgba(11, 15, 25, 0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Network Reliability</span>
+                    <i class="fa-solid fa-award" style="color: #8b5cf6; font-size: 1.2rem;"></i>
+                </div>
+                <div style="font-size: 1.8rem; font-weight: 800; color: #0f172a;">99.98%</div>
+                <div style="font-size: 0.78rem; color: #6366f1; font-weight: 600; margin-top: 4px;"><i class="fa-solid fa-circle-check"></i> SOC 2 Compliant</div>
+            </div>
         </div>
         {% if messages %}
         <div class="messages">
@@ -204,7 +243,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 8px;">
                                 <a href="{% url 'tracking' %}?id={{ shipment.tracking_number }}" target="_blank"
-                                    style="padding: 6px 12px; font-size: 0.8rem; background: #064e3b; color: #fff; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+                                    style="padding: 6px 12px; font-size: 0.8rem; background: #0b0f19; color: #fff; border-radius: 6px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
                                     <i class="fa-solid fa-satellite-dish" style="color: #10b981;"></i> Live Map
                                 </a>
                                 <span
@@ -360,7 +399,7 @@
                 <style>
                         body {
                             font-family: 'Inter', sans-serif;
-                            color: #064e3b;
+                            color: #0b0f19;
                             margin: 0;
                             padding: 40px;
                             background: #f8fafc;
@@ -384,17 +423,17 @@
                         .logo {
                             font-size: 2rem;
                             font-weight: 800;
-                            color: #064e3b;
+                            color: #0b0f19;
                         }
                         .logo span {
-                            color: #f59e0b;
+                            color: #06b6d4;
                         }
                         .receipt-title {
                             text-align: right;
                         }
                         .receipt-title h1 {
                             margin: 0;
-                            color: #f59e0b;
+                            color: #06b6d4;
                             font-size: 2.5rem;
                             text-transform: uppercase;
                             letter-spacing: 2px;
@@ -417,7 +456,7 @@
                         }
                         .info-box h3 {
                             margin-top: 0;
-                            color: #f59e0b;
+                            color: #06b6d4;
                             border-bottom: 1px solid #cbd5e1;
                             padding-bottom: 10px;
                         }
@@ -519,7 +558,7 @@
                                     <p><strong>Date of Registration:</strong> <span>${data.registered_date || 'N/A'}</span></p>
                                     <p><strong>Date of Arrival:</strong> <span>${data.arrival_date || 'N/A'}</span></p>
                                     <p><strong>Pieces:</strong> <span>${data.pieces}</span></p>
-                                    <p><strong>Total Cost:</strong> <span style="font-size: 1.2rem; color: #f59e0b; font-weight: 800;">$${data.cost}</span></p>
+                                    <p><strong>Total Cost:</strong> <span style="font-size: 1.2rem; color: #06b6d4; font-weight: 800;">$${data.cost}</span></p>
                                 </div>
                             </div>
                         </div>
@@ -563,25 +602,25 @@
         };
         const element = document.createElement('div');
         element.innerHTML = `
-            <div class="receipt-container" style="font-family: 'Inter', sans-serif; color: #064e3b; padding: 40px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="receipt-container" style="font-family: 'Inter', sans-serif; color: #0b0f19; padding: 40px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
-                    <div class="logo" style="font-size: 2rem; font-weight: 800; color: #064e3b;">
-                        Express<span style="color: #f59e0b;">Logistics</span>
+                    <div class="logo" style="font-size: 2rem; font-weight: 800; color: #0b0f19;">
+                        Link<span style="color: #06b6d4;">Express</span>
                     </div>
                     <div class="receipt-title" style="text-align: right;">
-                        <h1 style="margin: 0; color: #f59e0b; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">RECEIPT</h1>
+                        <h1 style="margin: 0; color: #06b6d4; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">RECEIPT</h1>
                         <p style="margin: 5px 0 0; color: #64748b; font-weight: 600; font-family: 'Inter', sans-serif;">Tracking No: ${data.tracking}</p>
                     </div>
                 </div>
                 
                 <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
                     <div class="info-box" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
-                        <h3 style="margin-top: 0; color: #f59e0b; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Sender Details</h3>
+                        <h3 style="margin-top: 0; color: #06b6d4; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Sender Details</h3>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Name:</strong> <span>${data.sender}</span></p>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Service:</strong> <span>${data.service}</span></p>
                     </div>
                     <div class="info-box" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
-                        <h3 style="margin-top: 0; color: #f59e0b; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Receiver Details</h3>
+                        <h3 style="margin-top: 0; color: #06b6d4; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Receiver Details</h3>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Name:</strong> <span>${data.receiver}</span></p>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Destination:</strong> <span>${data.dest}</span></p>
                     </div>
@@ -589,7 +628,7 @@
                 
                 <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
                     <div class="info-box" style="background: #f1f5f9; padding: 20px; border-radius: 8px; grid-column: span 2;">
-                        <h3 style="margin-top: 0; color: #f59e0b; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Package Details</h3>
+                        <h3 style="margin-top: 0; color: #06b6d4; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Package Details</h3>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <div>
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Tracking Number:</strong> <span>${data.tracking}</span></p>
@@ -600,7 +639,7 @@
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Date of Registration:</strong> <span>${data.registered_date || 'N/A'}</span></p>
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Date of Arrival:</strong> <span>${data.arrival_date || 'N/A'}</span></p>
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Pieces:</strong> <span>${data.pieces}</span></p>
-                                <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Total Cost:</strong> <span style="font-size: 1.2rem; color: #f59e0b; font-weight: 800; font-family: 'Inter', sans-serif;">$${data.cost}</span></p>
+                                <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Total Cost:</strong> <span style="font-size: 1.2rem; color: #06b6d4; font-weight: 800; font-family: 'Inter', sans-serif;">$${data.cost}</span></p>
                             </div>
                         </div>
                     </div>
@@ -648,25 +687,25 @@
         element.style.top = '0';
         element.style.width = '800px';
         element.innerHTML = `
-            <div class="receipt-container" style="font-family: 'Inter', sans-serif; color: #064e3b; padding: 40px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="receipt-container" style="font-family: 'Inter', sans-serif; color: #0b0f19; padding: 40px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
-                    <div class="logo" style="font-size: 2rem; font-weight: 800; color: #064e3b;">
-                        Express<span style="color: #f59e0b;">Logistics</span>
+                    <div class="logo" style="font-size: 2rem; font-weight: 800; color: #0b0f19;">
+                        Link<span style="color: #06b6d4;">Express</span>
                     </div>
                     <div class="receipt-title" style="text-align: right;">
-                        <h1 style="margin: 0; color: #f59e0b; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">RECEIPT</h1>
+                        <h1 style="margin: 0; color: #06b6d4; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">RECEIPT</h1>
                         <p style="margin: 5px 0 0; color: #64748b; font-weight: 600; font-family: 'Inter', sans-serif;">Tracking No: ${data.tracking}</p>
                     </div>
                 </div>
                 
                 <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
                     <div class="info-box" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
-                        <h3 style="margin-top: 0; color: #f59e0b; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Sender Details</h3>
+                        <h3 style="margin-top: 0; color: #06b6d4; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Sender Details</h3>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Name:</strong> <span>${data.sender}</span></p>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Service:</strong> <span>${data.service}</span></p>
                     </div>
                     <div class="info-box" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
-                        <h3 style="margin-top: 0; color: #f59e0b; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Receiver Details</h3>
+                        <h3 style="margin-top: 0; color: #06b6d4; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Receiver Details</h3>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Name:</strong> <span>${data.receiver}</span></p>
                         <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Destination:</strong> <span>${data.dest}</span></p>
                     </div>
@@ -674,7 +713,7 @@
                 
                 <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
                     <div class="info-box" style="background: #f1f5f9; padding: 20px; border-radius: 8px; grid-column: span 2;">
-                        <h3 style="margin-top: 0; color: #f59e0b; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Package Details</h3>
+                        <h3 style="margin-top: 0; color: #06b6d4; border-bottom: 1px solid #cbd5e1; padding-bottom: 10px; font-family: 'Inter', sans-serif;">Package Details</h3>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                             <div>
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Tracking Number:</strong> <span>${data.tracking}</span></p>
@@ -685,7 +724,7 @@
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Date of Registration:</strong> <span>${data.registered_date || 'N/A'}</span></p>
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Date of Arrival:</strong> <span>${data.arrival_date || 'N/A'}</span></p>
                                 <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Pieces:</strong> <span>${data.pieces}</span></p>
-                                <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Total Cost:</strong> <span style="font-size: 1.2rem; color: #f59e0b; font-weight: 800; font-family: 'Inter', sans-serif;">$${data.cost}</span></p>
+                                <p style="margin: 8px 0; display: flex; justify-content: space-between; font-family: 'Inter', sans-serif;"><strong style="color: #334155;">Total Cost:</strong> <span style="font-size: 1.2rem; color: #06b6d4; font-weight: 800; font-family: 'Inter', sans-serif;">$${data.cost}</span></p>
                             </div>
                         </div>
                     </div>
@@ -719,7 +758,7 @@
 <footer>
     <div class="container footer-content">
         <div class="footer-logo">
-            <i class="fa-solid fa-truck-fast"></i> Express<span>Admin</span>
+            <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Express<span class="gradient-brand">Admin</span>
         </div>
         <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
     </div>

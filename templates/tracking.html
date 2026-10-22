@@ -16,10 +16,10 @@
 </head>
 
 <body style="background-color: var(--bg-light);">
-    <nav class="navbar" style="background: rgba(2, 44, 34, 0.96);">
+    <nav class="navbar" style="background: rgba(11, 15, 25, 0.96);">
         <div class="container nav-container">
             <a href="{% url 'index' %}" class="logo">
-                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
             </a>
             <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-links">
@@ -156,7 +156,7 @@
                             <div class="telemetry-item">
                                 <span class="telemetry-label">CURRENT LOCATION</span>
                                 <span class="telemetry-val" id="telemetry-location">
-                                    <i class="fa-solid fa-location-dot" style="color: #f59e0b;"></i>
+                                    <i class="fa-solid fa-location-dot" style="color: #06b6d4;"></i>
                                     {{ shipment.current_location_name|default:shipment.history.first.location|default:shipment.sender_city }}
                                 </span>
                             </div>
@@ -258,7 +258,7 @@
     <footer>
         <div class="container footer-content">
             <div class="footer-logo">
-                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
             </div>
             <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
 
@@ -430,7 +430,7 @@
                 // Draw route line
                 if (waypoints.length > 1) {
                     const routeLine = L.polyline(waypoints, {
-                        color: '#f59e0b',
+                        color: '#06b6d4',
                         weight: 4,
                         dashArray: '8, 8',
                         opacity: 0.8,
@@ -489,7 +489,7 @@
                         }
                         if (scrollHint) {
                             scrollHint.innerHTML = `<i class="fa-solid fa-arrows-up-down"></i> <span>Scroll-safe</span>`;
-                            scrollHint.style.background = 'rgba(2, 44, 34, 0.85)';
+                            scrollHint.style.background = 'rgba(11, 15, 25, 0.85)';
                         }
                         showLiveToast('Scroll locked: swipe down freely to see details.');
                     }
@@ -593,7 +593,7 @@
 
                             // Update telemetry values
                             const teleLoc = document.getElementById('telemetry-location');
-                            if (teleLoc) teleLoc.innerHTML = `<i class="fa-solid fa-location-dot" style="color: #f59e0b;"></i> ${syncData.current_location}`;
+                            if (teleLoc) teleLoc.innerHTML = `<i class="fa-solid fa-location-dot" style="color: #06b6d4;"></i> ${syncData.current_location}`;
 
                             const teleStat = document.getElementById('telemetry-status');
                             if (teleStat) teleStat.innerHTML = `<i class="fa-solid fa-truck-fast"></i> ${syncData.status_display}`;

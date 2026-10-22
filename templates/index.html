@@ -5,27 +5,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Express Service | Fast & Secure Delivery</title>
+    <title>Link Express Service | Next-Gen Global Logistics & Telemetry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}?v={% now 'U' %}">
 </head>
 
 <body>
+    <!-- Top Navigation Bar -->
     <nav class="navbar">
         <div class="container nav-container">
             <a href="{% url 'index' %}" class="logo">
-                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
             </a>
-                        <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
+            <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-links">
                 <li><a href="{% url 'index' %}" class="active">Home</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com"
-                        target="_blank" style="color: var(--accent-color);"><i class="fa-solid fa-envelope"></i> Contact
-                        Us</a></li>
+                <li><a href="#calculator">Rate Calculator</a></li>
+                <li><a href="#operations">Operations</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com" target="_blank" style="color: var(--accent-cyan);">
+                        <i class="fa-solid fa-envelope"></i> Contact Us
+                    </a>
+                </li>
                 <li class="language-dropdown">
                     <div class="lang-selector">
                         <i class="fa-solid fa-globe"></i>
@@ -59,125 +66,449 @@
         </div>
     </nav>
 
+    <!-- Hero Section (Modern 2-Column Fintech Layout) -->
     <header class="hero">
         <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1>Global Delivery, <span>Simplified.</span></h1>
-            <p>Track your packages in real-time with our state-of-the-art logistics network.</p>
-
-            <div class="tracking-box">
-                <h2>Track Your Shipment</h2>
-                <form id="tracking-form" action="{% url 'tracking' %}" method="GET">
-                    <div class="input-group">
-                        <i class="fa-solid fa-box"></i>
-                        <input type="text" name="id" id="tracking-number"
-                            placeholder="Enter Tracking Number (e.g., EXL-123456)" required>
-                        <button type="submit" class="btn-primary">Track Package <i
-                                class="fa-solid fa-arrow-right"></i></button>
+        <div class="container hero-content" style="max-width: 1240px; width: 100%;">
+            <div class="hero-split-grid">
+                <!-- Left: Value Prop & Live Search -->
+                <div class="hero-text-col">
+                    <div class="hero-pill-badge">
+                        <span class="badge-dot"></span>
+                        <span>Next-Gen Autonomous Logistics & Telemetry</span>
                     </div>
-                </form>
+                    <h1>Global Logistics & Express Settlement, <span class="gradient-text">Unified.</span></h1>
+                    <p class="hero-subtitle">
+                        Track cross-border shipments with sub-meter satellite telemetry, cryptographic chain-of-custody, and instantaneous customs clearing.
+                    </p>
+
+                    <div class="tracking-box" style="padding: 24px; margin: 0; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(99, 102, 241, 0.3);">
+                        <form id="tracking-form" action="{% url 'tracking' %}" method="GET">
+                            <div class="input-group" style="background: rgba(255, 255, 255, 0.95);">
+                                <i class="fa-solid fa-box" style="color: var(--accent-color);"></i>
+                                <input type="text" name="id" id="tracking-number" placeholder="Enter Tracking Number (e.g., EXL-884920)" required autocomplete="off">
+                                <button type="submit" class="btn-primary">
+                                    <span>Track Shipment</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Quick-Test Demo Chips -->
+                        <div class="quick-chips-wrapper">
+                            <span><i class="fa-solid fa-bolt" style="color: var(--accent-cyan); margin-right: 4px;"></i> Try Sample ID:</span>
+                            <button type="button" class="quick-chip" onclick="fillTracking('EXL-884920')">EXL-884920 (Air Freight)</button>
+                            <button type="button" class="quick-chip" onclick="fillTracking('EXL-789456')">EXL-789456 (In Transit)</button>
+                            <button type="button" class="quick-chip" onclick="fillTracking('EXL-902184')">EXL-902184 (Delivered)</button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Trust Metrics -->
+                    <div class="hero-trust-bar">
+                        <div class="trust-stat-item">
+                            <h4>99.98%</h4>
+                            <p>On-Time Dispatch</p>
+                        </div>
+                        <div class="trust-stat-item">
+                            <h4>220+</h4>
+                            <p>Global Hubs</p>
+                        </div>
+                        <div class="trust-stat-item">
+                            <h4>&lt; 2.4s</h4>
+                            <p>GPS Latency</p>
+                        </div>
+                        <div class="trust-stat-item">
+                            <h4>SOC 2</h4>
+                            <p>Type II Audited</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: High-End 3D Visual Showcase Card -->
+                <div class="hero-visual-col">
+                    <div class="hero-visual-card">
+                        <img src="{% static 'assets/fintech_hero.jpg' %}" alt="Link Express Global Telemetry Network">
+                        <div class="hero-visual-footer">
+                            <div class="live-signal-indicator">
+                                <i class="fa-solid fa-satellite-dish"></i>
+                                <span>LIVE SATELLITE TELEMETRY</span>
+                            </div>
+                            <span class="ticker-status live">ACTIVE FEED</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
+    <!-- Global Network Live Activity Ticker -->
+    <section class="network-ticker-bar">
+        <div class="ticker-track">
+            <div class="ticker-item">
+                <i class="fa-solid fa-plane-departure" style="color: var(--accent-cyan);"></i>
+                <span>[ZRH &rarr; SIN] Flight LX-409 at 38,000ft</span>
+                <span class="ticker-status live">TELEMETRY 100%</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fa-solid fa-ship" style="color: #38bdf8;"></i>
+                <span>[SGP &rarr; SYD] Aurora Vessel 01 Ocean Transit</span>
+                <span class="ticker-status live">EN ROUTE</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i>
+                <span>[JFK &rarr; LHR] Consignment #EXL-902184 Cleared</span>
+                <span class="ticker-status cleared">CUSTOMS PRE-CLEARED</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fa-solid fa-cube" style="color: #a5b4fc;"></i>
+                <span>[FRA &rarr; DXB] High-Security Vault Handoff</span>
+                <span class="ticker-status vault">QUANTUM SEAL VERIFIED</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fa-solid fa-truck-fast" style="color: var(--accent-cyan);"></i>
+                <span>[TYO &rarr; SFO] Express Electric Courier Fleet</span>
+                <span class="ticker-status live">SAME-DAY DISPATCH</span>
+            </div>
+            <!-- Duplicate for seamless infinite loop -->
+            <div class="ticker-item">
+                <i class="fa-solid fa-plane-departure" style="color: var(--accent-cyan);"></i>
+                <span>[ZRH &rarr; SIN] Flight LX-409 at 38,000ft</span>
+                <span class="ticker-status live">TELEMETRY 100%</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fa-solid fa-ship" style="color: #38bdf8;"></i>
+                <span>[SGP &rarr; SYD] Aurora Vessel 01 Ocean Transit</span>
+                <span class="ticker-status live">EN ROUTE</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fa-solid fa-shield-halved" style="color: #10b981;"></i>
+                <span>[JFK &rarr; LHR] Consignment #EXL-902184 Cleared</span>
+                <span class="ticker-status cleared">CUSTOMS PRE-CLEARED</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Updated with 3D Visual Assets) -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <h2>Our Premium Services</h2>
-                <p>We offer a wide range of logistics solutions tailored to your needs.</p>
+                <div class="card-badge-pill"><i class="fa-solid fa-layer-group"></i> Institutional Capabilities</div>
+                <h2>Autonomous Freight & Delivery Modes</h2>
+                <p>Engineered for high-value velocity, multi-modal routing, and zero-compromise precision.</p>
             </div>
 
             <div class="services-grid">
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_plane.png' %}" alt="Air Freight">
+                        <img src="{% static 'assets/express_plane.png' %}" alt="Air Freight Scramjet Telemetry">
                     </div>
                     <div class="card-content">
-                        <h3>Air Freight</h3>
-                        <p>Fast and reliable air transport for urgent global deliveries.</p>
+                        <div class="card-badge-pill" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">
+                            <i class="fa-solid fa-plane"></i> Mach 4.2 Velocity
+                        </div>
+                        <h3>Supersonic Air Freight</h3>
+                        <p>Ultra-fast intercontinental air transport equipped with continuous avionics satellite telemetry for mission-critical cargo.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_ship.png' %}" alt="Ocean Freight">
+                        <img src="{% static 'assets/express_ship.png' %}" alt="Autonomous Ocean Freight">
                     </div>
                     <div class="card-content">
-                        <h3>Ocean Freight</h3>
-                        <p>Cost-effective shipping solutions for large cargo volumes.</p>
+                        <div class="card-badge-pill" style="color: #06b6d4; border-color: rgba(6, 182, 212, 0.3);">
+                            <i class="fa-solid fa-ship"></i> Smart Maritime
+                        </div>
+                        <h3>Autonomous Ocean Freight</h3>
+                        <p>Cost-effective global maritime logistics powered by autonomous navigational grids and smart climate-regulated container units.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_van.png' %}" alt="Ground Delivery">
+                        <img src="{% static 'assets/express_van.png' %}" alt="Electric Ground Delivery">
                     </div>
                     <div class="card-content">
-                        <h3>Ground Delivery</h3>
-                        <p>Efficient local and regional distribution networks.</p>
+                        <div class="card-badge-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+                            <i class="fa-solid fa-leaf"></i> Zero Net Emissions
+                        </div>
+                        <h3>Electric Ground Courier</h3>
+                        <p>High-efficiency urban distribution fleet with algorithmic dispatch, intelligent routing HUDs, and rapid localized turnaround.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Interactive Shipping Rate & Multi-Currency Calculator -->
+    <section id="calculator" class="calc-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="card-badge-pill"><i class="fa-solid fa-calculator"></i> Real-Time Quote Engine</div>
+                <h2>Instant Freight & FX Rate Estimator</h2>
+                <p>Simulate cross-border shipping rates with instantaneous multi-currency conversion and transparent customs duties.</p>
+            </div>
+
+            <div class="calc-card">
+                <!-- Currency Toggle Buttons -->
+                <div class="currency-selector-bar">
+                    <span style="font-size: 0.85rem; font-weight: 700; color: #64748b; margin-right: 6px;">SELECT CURRENCY:</span>
+                    <button type="button" class="currency-btn active" data-currency="USD" onclick="setCurrency('USD')">USD ($)</button>
+                    <button type="button" class="currency-btn" data-currency="EUR" onclick="setCurrency('EUR')">EUR (€)</button>
+                    <button type="button" class="currency-btn" data-currency="GBP" onclick="setCurrency('GBP')">GBP (£)</button>
+                    <button type="button" class="currency-btn" data-currency="JPY" onclick="setCurrency('JPY')">JPY (¥)</button>
+                </div>
+
+                <!-- Input Controls Grid -->
+                <div class="calc-grid">
+                    <div class="calc-group">
+                        <label for="calc-origin">Origin Hub</label>
+                        <select id="calc-origin" class="calc-select" onchange="calculateRate()">
+                            <option value="USA">New York, USA (JFK)</option>
+                            <option value="GBR">London, UK (LHR)</option>
+                            <option value="CHE">Zurich, Switzerland (ZRH)</option>
+                            <option value="DEU">Frankfurt, Germany (FRA)</option>
+                            <option value="SGP">Singapore (SIN)</option>
+                            <option value="JPN">Tokyo, Japan (HND)</option>
+                            <option value="ARE">Dubai, UAE (DXB)</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-group">
+                        <label for="calc-dest">Destination Hub</label>
+                        <select id="calc-dest" class="calc-select" onchange="calculateRate()">
+                            <option value="SGP">Singapore (SIN)</option>
+                            <option value="USA">New York, USA (JFK)</option>
+                            <option value="GBR">London, UK (LHR)</option>
+                            <option value="CHE">Zurich, Switzerland (ZRH)</option>
+                            <option value="AUS">Sydney, Australia (SYD)</option>
+                            <option value="CAN">Toronto, Canada (YYZ)</option>
+                            <option value="FRA">Paris, France (CDG)</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-group">
+                        <label for="calc-weight">Gross Weight (KG)</label>
+                        <input type="number" id="calc-weight" class="calc-input" value="12" min="1" max="10000" oninput="calculateRate()">
+                    </div>
+
+                    <div class="calc-group">
+                        <label for="calc-tier">Service Velocity Tier</label>
+                        <select id="calc-tier" class="calc-select" onchange="calculateRate()">
+                            <option value="express">Express Supersonic Air (24-48h)</option>
+                            <option value="standard">Priority Maritime Freight (5-7d)</option>
+                            <option value="ground">Ground Regional Courier (1-3d)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Calculation Result Box -->
+                <div class="calc-result-box">
+                    <div class="rate-display-group">
+                        <h3>Estimated Settlement Quote</h3>
+                        <div class="rate-amount" id="calc-display-amount">$186.00</div>
+                        <div class="rate-meta" id="calc-meta-details">Base Freight: $144.00 &bull; Automated Clearance: $42.00 &bull; Telemetry: $0 (Included)</div>
+                    </div>
+                    <div>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com&su=Freight+Dispatch+Reservation" target="_blank" class="btn-primary" style="padding: 14px 28px;">
+                            <span>Book Consignment</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operations Section (Updated with 3D Visual Assets) -->
     <section id="operations" class="services" style="background: var(--bg-light);">
         <div class="container">
             <div class="section-header">
-                <h2>Our Operations</h2>
-                <p>A real-time look at our logistics network in action.</p>
+                <div class="card-badge-pill"><i class="fa-solid fa-fingerprint"></i> High-Assurance Operations</div>
+                <h2>Encrypted Custody & Fulfillment</h2>
+                <p>End-to-end cryptographic accountability across all physical and digital transit touchpoints.</p>
             </div>
 
             <div class="services-grid">
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_package.png' %}" alt="Premium Packaging">
+                        <img src="{% static 'assets/express_package.png' %}" alt="Quantum Encrypted Packaging">
                     </div>
                     <div class="card-content">
-                        <h3>Secure Packaging</h3>
-                        <p>Every item is handled with the utmost care and precision.</p>
+                        <div class="card-badge-pill" style="color: #6366f1; border-color: rgba(99, 102, 241, 0.3);">
+                            <i class="fa-solid fa-lock"></i> Biometric Seal
+                        </div>
+                        <h3>Tamper-Proof Smart Packaging</h3>
+                        <p>Every consignment is protected with RFID cryptographic sensors and biometric seals that report real-time integrity status.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_carrying.png' %}" alt="Warehouse Operations">
+                        <img src="{% static 'assets/express_carrying.png' %}" alt="Automated AI Robotics Hub">
                     </div>
                     <div class="card-content">
-                        <h3>Efficient Processing</h3>
-                        <p>Our team works around the clock to process your shipments.</p>
+                        <div class="card-badge-pill" style="color: #06b6d4; border-color: rgba(6, 182, 212, 0.3);">
+                            <i class="fa-solid fa-robot"></i> AI Orchestration
+                        </div>
+                        <h3>Automated Robotic Hubs</h3>
+                        <p>Robotic sorting facilities process tens of thousands of packages per hour with sub-millimeter precision and zero misroutes.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_delivering.png' %}" alt="Last Mile Delivery">
+                        <img src="{% static 'assets/express_delivering.png' %}" alt="Cryptographic Last-Mile Verification">
                     </div>
                     <div class="card-content">
-                        <h3>Last-Mile Delivery</h3>
-                        <p>Friendly, professional delivery right to your front door.</p>
+                        <div class="card-badge-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
+                            <i class="fa-solid fa-signature"></i> Digital Attestation
+                        </div>
+                        <h3>Verified Last-Mile Handover</h3>
+                        <p>Couriers execute cryptographic digital handovers with instant photo and biometric verification pushed directly to your ledger.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Enterprise Security & Core Architecture Section -->
+    <section id="security" class="security-architecture-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="card-badge-pill" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8; border-color: rgba(6, 182, 212, 0.4);">
+                    <i class="fa-solid fa-shield-halved"></i> Institutional Grade Security
+                </div>
+                <h2 style="color: #ffffff;">Enterprise Clearing Architecture</h2>
+                <p style="color: #94a3b8;">Built for multi-national corporations, fintech leaders, and high-value sovereign assets.</p>
+            </div>
+
+            <div class="security-grid">
+                <div class="security-card">
+                    <div class="security-icon"><i class="fa-solid fa-satellite"></i></div>
+                    <h3>Sub-Meter Satellite Telemetry</h3>
+                    <p>Continuous LEO satellite constellation link updates shipment coordinates every 30 seconds with sub-meter latitude/longitude fidelity.</p>
+                </div>
+
+                <div class="security-card">
+                    <div class="security-icon"><i class="fa-solid fa-passport"></i></div>
+                    <h3>Automated Customs Clearing</h3>
+                    <p>Direct EDI & API pipelines to worldwide customs authorities calculate tariffs instantly and provide pre-clearance before landing.</p>
+                </div>
+
+                <div class="security-card">
+                    <div class="security-icon"><i class="fa-solid fa-network-wired"></i></div>
+                    <h3>Immutable Audit Trail</h3>
+                    <p>Every scan, waypoint entry, and custodial change is immutably timestamped and verified against tamper-resistant digital records.</p>
+                </div>
+
+                <div class="security-card">
+                    <div class="security-icon"><i class="fa-solid fa-vault"></i></div>
+                    <h3>$5,000,000 Vault Transit Bond</h3>
+                    <p>High-value shipments are fully bonded and insured through institutional underwriting syndicates with rapid claims settlement.</p>
+                </div>
+            </div>
+
+            <!-- Trust Badges Strip -->
+            <div class="trust-strip">
+                <div class="trust-badge-item">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>ISO 9001:2020 Quality Certified</span>
+                </div>
+                <div class="trust-badge-item">
+                    <i class="fa-solid fa-plane-shield"></i>
+                    <span>IATA Authorized Cargo Agent</span>
+                </div>
+                <div class="trust-badge-item">
+                    <i class="fa-solid fa-shield-check"></i>
+                    <span>WCO SAFE Framework Compliant</span>
+                </div>
+                <div class="trust-badge-item">
+                    <i class="fa-solid fa-lock"></i>
+                    <span>SOC 2 Type II Audited System</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="card-badge-pill"><i class="fa-solid fa-circle-question"></i> Client Inquiries</div>
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about our global tracking, security, and settlement protocol.</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item active">
+                    <div class="faq-header" onclick="toggleFaq(this)">
+                        <h3>How does real-time satellite telemetry work on Link Express?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-body">
+                        Our shipments are equipped with active telemetry transponders communicating with low-earth orbit satellite networks. Coordinates, transit speed, and environmental conditions are updated directly on the live map every 30 seconds without requiring manual barcode scans.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-header" onclick="toggleFaq(this)">
+                        <h3>Can I generate and print an official proof of delivery or invoice?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-body">
+                        Yes! On the tracking page for any shipment, click "Download Receipt / PDF" to instantly generate a legally binding, high-resolution delivery receipt with full QR code verification, timestamp history, and customs duty breakdown.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-header" onclick="toggleFaq(this)">
+                        <h3>What happens if a tracking number contains a typo like '0' vs 'O'?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-body">
+                        Our system utilizes intelligent phonetic and character fault tolerance. If you accidentally type 'O' instead of '0' or omit hyphens, our query resolution engine automatically resolves and matches the correct shipment record.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-header" onclick="toggleFaq(this)">
+                        <h3>Are multi-currency settlement options available for international cargo?</h3>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-body">
+                        Yes. Through our integrated fintech clearinghouse, you can quote, invoice, and settle freight charges in USD ($), EUR (€), GBP (£), JPY (¥), or select institutional digital assets with guaranteed foreign exchange locks.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container footer-content">
-            <div class="footer-logo">
-                <i class="fa-solid fa-truck-fast"></i> Link<span>Express</span>
+            <div class="footer-logo" style="font-size: 1.8rem;">
+                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
             </div>
-            <div class="contact-info" style="margin: 15px 0;">
-                <p><i class="fa-solid fa-envelope" style="color: var(--accent-color); margin-right: 8px;"></i> <a
-                        href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com"
-                        target="_blank"
-                        style="color: var(--text-light); text-decoration: none;">linkexpressservice@gmail.com</a></p>
+            <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #94a3b8;">
+                <span class="pulse-dot" style="background-color: #10b981; width: 8px; height: 8px;"></span>
+                <span>All Global Satellites &amp; Telemetry Relays Operational (99.98% SLA)</span>
             </div>
-            <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
+            <div class="contact-info" style="margin: 10px 0;">
+                <p>
+                    <i class="fa-solid fa-envelope" style="color: var(--accent-cyan); margin-right: 8px;"></i>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com" target="_blank" style="color: var(--text-light); text-decoration: none;">
+                        linkexpressservice@gmail.com
+                    </a>
+                </p>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b;">
+                &copy; 2026 Link Express Service &bull; Global Autonomous Logistics &bull; All rights reserved.
+            </p>
         </div>
     </footer>
 
-    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static 'script.js' %}?v={% now 'U' %}"></script>
 </body>
 
 </html>
