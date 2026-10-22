@@ -11,7 +11,7 @@ class AdminLogoutMiddleware:
     def __call__(self, request):
         # If the request is for the admin site and the user is logged in, log them out
         # If the request is for the admin site and the user is logged in but not staff, log them out
-        if request.path.startswith('/admin/') and request.user.is_authenticated and not request.user.is_staff:
+        if request.path.startswith('/khkhkhkhk/') and request.user.is_authenticated and not request.user.is_staff:
             logout(request)
         response = self.get_response(request)
         return response
