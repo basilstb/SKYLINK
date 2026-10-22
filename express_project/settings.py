@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Development secret key (replace before production)
 # In production, DJANGO_SECRET_KEY is set in the server's WSGI file.
-SECRET_KEY = 'zU38uH91ekEfKJAmyE8gTFUNcVVRhgdmxR2r0P_sidqq2Mlh6-pKn27oFzKEjb5414I'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'zU38uH91ekEfKJAmyE8gTFUNcVVRhgdmxR2r0P_sidqq2Mlh6-pKn27oFzKEjb5414I')
 
 # Development settings (local only)
 # In production, DJANGO_DEBUG=False is set in the server's WSGI file.
