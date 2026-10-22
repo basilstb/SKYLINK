@@ -1,11 +1,11 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Shipment | Link Express Service</title>
+    <title>Track Shipment | Sky Link Express Service</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -19,13 +19,13 @@
     <nav class="navbar" style="background: rgba(11, 15, 25, 0.96);">
         <div class="container nav-container">
             <a href="{% url 'index' %}" class="logo">
-                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
+                <i class="fa-solid fa-plane-departure" style="color: var(--accent-cyan);"></i> Sky Link<span class="gradient-brand"> Express</span>
             </a>
             <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-links">
                 <li><a href="{% url 'index' %}">Home</a></li>
                 <li><a href="{% url 'index' %}#services">Services</a></li>
-                <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com"
+                <li><a href="mailto:info@skylinkcustomerservice.com"
                         target="_blank" style="color: var(--accent-color);"><i class="fa-solid fa-envelope"></i> Contact
                         Us</a></li>
                 <li class="language-dropdown">
@@ -36,25 +36,25 @@
                     </div>
                     <ul class="lang-menu" style="max-height: 300px; overflow-y: auto;">
                         <li onclick="changeLang('English')">English</li>
-                        <li onclick="changeLang('Russian')">Русский</li>
+                        <li onclick="changeLang('Russian')">Ð ÑƒÑÑÐºÐ¸Ð¹</li>
                         <li onclick="changeLang('German')">Deutsch</li>
-                        <li onclick="changeLang('Spanish')">Español</li>
-                        <li onclick="changeLang('French')">Français</li>
-                        <li onclick="changeLang('Chinese')">中文</li>
-                        <li onclick="changeLang('Arabic')">العربية</li>
-                        <li onclick="changeLang('Hindi')">हिन्दी</li>
-                        <li onclick="changeLang('Portuguese')">Português</li>
-                        <li onclick="changeLang('Japanese')">日本語</li>
-                        <li onclick="changeLang('Korean')">한국어</li>
+                        <li onclick="changeLang('Spanish')">EspaÃ±ol</li>
+                        <li onclick="changeLang('French')">FranÃ§ais</li>
+                        <li onclick="changeLang('Chinese')">ä¸­æ–‡</li>
+                        <li onclick="changeLang('Arabic')">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</li>
+                        <li onclick="changeLang('Hindi')">à¤¹à¤¿à¤¨à¥à¤¦à¥€</li>
+                        <li onclick="changeLang('Portuguese')">PortuguÃªs</li>
+                        <li onclick="changeLang('Japanese')">æ—¥æœ¬èªž</li>
+                        <li onclick="changeLang('Korean')">í•œêµ­ì–´</li>
                         <li onclick="changeLang('Italian')">Italiano</li>
                         <li onclick="changeLang('Dutch')">Nederlands</li>
-                        <li onclick="changeLang('Turkish')">Türkçe</li>
-                        <li onclick="changeLang('Vietnamese')">Tiếng Việt</li>
+                        <li onclick="changeLang('Turkish')">TÃ¼rkÃ§e</li>
+                        <li onclick="changeLang('Vietnamese')">Tiáº¿ng Viá»‡t</li>
                         <li onclick="changeLang('Polish')">Polski</li>
                         <li onclick="changeLang('Indonesian')">Bahasa Indonesia</li>
-                        <li onclick="changeLang('Thai')">ไทย</li>
+                        <li onclick="changeLang('Thai')">à¹„à¸—à¸¢</li>
                         <li onclick="changeLang('Swedish')">Svenska</li>
-                        <li onclick="changeLang('Greek')">Ελληνικά</li>
+                        <li onclick="changeLang('Greek')">Î•Î»Î»Î·Î½Î¹ÎºÎ¬</li>
                     </ul>
                 </li>
             </ul>
@@ -123,6 +123,9 @@
                                     <strong>LIVE GPS</strong>
                                 </div>
                                 <span class="live-status-pill" id="live-transit-mode"><i class="fa-solid fa-satellite-dish"></i> Live Satellite Feed</span>
+                                <span class="live-status-pill plane-hint-pill" id="plane-hint-pill" style="cursor: pointer; background: rgba(6, 182, 212, 0.15); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.4);" title="Touch aeroplane to view current location">
+                                    <i class="fa-solid fa-plane"></i> Touch Plane for Location
+                                </span>
                             </div>
                             <div class="map-actions-group">
                                 <button type="button" class="btn-map-control" id="btn-toggle-pan" title="Toggle Map Pan / Page Scroll">
@@ -140,10 +143,32 @@
                             </div>
                         </div>
 
-                        <!-- Compact Map Viewport (Small footprint so page body is easily scrollable) -->
-                        <div class="map-viewport-wrapper" id="map-viewport-wrapper" style="position: relative; width: 100%; height: 130px !important; min-height: 130px !important; overflow: hidden;">
+                        <!-- Responsive Map Viewport -->
+                        <div class="map-viewport-wrapper" id="map-viewport-wrapper">
+                            <!-- Floating Aircraft Live Location Card (Appears when aeroplane is touched) -->
+                            <div class="plane-location-card" id="plane-location-card">
+                                <div class="plane-card-top">
+                                    <div class="plane-card-tag">
+                                        <span class="pulse-beacon"></span>
+                                        <i class="fa-solid fa-plane-departure"></i>
+                                        <span>LIVE FLIGHT TELEMETRY</span>
+                                    </div>
+                                    <button type="button" class="btn-close-plane-card" id="btn-close-plane-card" title="Close Location">&times;</button>
+                                </div>
+                                <div class="plane-card-main">
+                                    <div class="plane-card-location">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <strong id="plane-card-location-text">{{ shipment.current_location_name|default:shipment.history.first.location|default:shipment.sender_city }}</strong>
+                                    </div>
+                                    <div class="plane-card-meta">
+                                        <span class="plane-coord-pill" id="plane-card-coords"><i class="fa-solid fa-satellite"></i> GPS Active</span>
+                                        <span class="plane-status-pill" id="plane-card-status"><i class="fa-solid fa-plane"></i> {{ shipment.get_status_display }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Leaflet Interactive Map Container (Scroll-safe by default) -->
-                            <div id="live-map" class="scroll-safe" data-tracking-id="{{ shipment.tracking_number }}" style="width: 100%; height: 100%; min-height: 130px !important;"></div>
+                            <div id="live-map" class="scroll-safe" data-tracking-id="{{ shipment.tracking_number }}"></div>
                             
                             <!-- Subtle non-blocking status hint -->
                             <div class="map-scroll-hint" id="map-scroll-hint">
@@ -153,7 +178,7 @@
 
                         <!-- Telemetry Bottom Bar -->
                         <div class="map-telemetry-bar">
-                            <div class="telemetry-item">
+                            <div class="telemetry-item" id="telemetry-location-item" style="cursor: pointer;" title="Touch to view location on map">
                                 <span class="telemetry-label">CURRENT LOCATION</span>
                                 <span class="telemetry-val" id="telemetry-location">
                                     <i class="fa-solid fa-location-dot" style="color: #06b6d4;"></i>
@@ -258,9 +283,9 @@
     <footer>
         <div class="container footer-content">
             <div class="footer-logo">
-                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
+                <i class="fa-solid fa-plane-departure" style="color: var(--accent-cyan);"></i> Sky Link<span class="gradient-brand"> Express</span>
             </div>
-            <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
+            <p>&copy; 2026 Sky Link Express Service Prototype. All rights reserved.</p>
 
         </div>
     </footer>
@@ -395,23 +420,175 @@
                 const destMarker = L.marker(destCoords, { icon: destIcon }).addTo(map);
                 destMarker.bindPopup(`<b>Delivery Destination</b><br>${data.destination.name || ''}<br>${data.destination.address || ''}`);
 
-                // Vehicle Live Marker with Pulsing Radar Ring
-                const isAirFreight = (data.events && data.events.some(e => e.location && (e.location.toLowerCase().includes('flight') || e.location.toLowerCase().includes('air'))));
+                // Blinking Aeroplane Live Marker with Dual Pulsing Radar Rings
                 const vehicleIconHtml = `
-                    <div class="pin-bubble vehicle">
+                    <div class="pin-bubble vehicle" id="blinking-aeroplane" role="button" aria-label="Touch aeroplane to view location" title="Touch to view location">
                         <div class="vehicle-pulse-ring"></div>
-                        <i class="fa-solid ${isAirFreight ? 'fa-plane' : 'fa-truck-fast'}"></i>
+                        <div class="vehicle-pulse-ring-2"></div>
+                        <i class="fa-solid fa-plane"></i>
                     </div>
                 `;
                 const vehicleIcon = L.divIcon({
-                    className: 'custom-pin-marker',
+                    className: 'custom-pin-marker vehicle-marker-container',
                     html: vehicleIconHtml,
-                    iconSize: [36, 36],
-                    iconAnchor: [18, 18],
+                    iconSize: [38, 38],
+                    iconAnchor: [19, 19],
                     popupAnchor: [0, -18]
                 });
-                const vehicleMarker = L.marker(currentCoords, { icon: vehicleIcon, zIndexOffset: 1000 }).addTo(map);
-                vehicleMarker.bindPopup(`<b>Current Location</b><br>${data.current_location || ''}<br>Status: <strong>${data.status_display || data.status}</strong>`);
+                const vehicleMarker = L.marker(currentCoords, { 
+                    icon: vehicleIcon, 
+                    zIndexOffset: 1000,
+                    interactive: true 
+                }).addTo(map);
+
+                // Helper to format high-tech flight popup HTML
+                function buildFlightPopupHtml(loc, statusText, latVal, lngVal) {
+                    const latStr = (typeof latVal === 'number') ? latVal.toFixed(4) : '';
+                    const lngStr = (typeof lngVal === 'number') ? lngVal.toFixed(4) : '';
+                    return `
+                        <div class="aircraft-popup-inner">
+                            <div class="aircraft-popup-badge-row">
+                                <span class="pulse-beacon"></span>
+                                <span>LIVE AIRCRAFT GPS</span>
+                            </div>
+                            <div class="aircraft-popup-loc">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>${loc || 'In Flight'}</span>
+                            </div>
+                            <div class="aircraft-popup-meta">
+                                <span class="aircraft-popup-status">${statusText || 'In Transit'}</span>
+                                ${latStr ? `<span class="aircraft-popup-coords">${latStr}Â°, ${lngStr}Â°</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // Bind custom high-contrast popup
+                vehicleMarker.bindPopup(
+                    buildFlightPopupHtml(data.current_location, data.status_display || data.status, currentCoords[0], currentCoords[1]),
+                    { 
+                        className: 'aircraft-custom-popup',
+                        offset: [0, -10],
+                        autoPanPadding: [15, 15],
+                        closeButton: true
+                    }
+                );
+
+                // Floating card elements
+                const planeCard = document.getElementById('plane-location-card');
+                const planeCardLocText = document.getElementById('plane-card-location-text');
+                const planeCardCoords = document.getElementById('plane-card-coords');
+                const planeCardStatus = document.getElementById('plane-card-status');
+                const btnClosePlaneCard = document.getElementById('btn-close-plane-card');
+
+                function updateLocationDisplays(locName, statusVal, latVal, lngVal) {
+                    if (planeCardLocText) planeCardLocText.textContent = locName;
+                    if (planeCardStatus) planeCardStatus.innerHTML = `<i class="fa-solid fa-plane"></i> ${statusVal}`;
+                    if (planeCardCoords && typeof latVal === 'number' && typeof lngVal === 'number') {
+                        planeCardCoords.innerHTML = `<i class="fa-solid fa-satellite"></i> GPS: ${latVal.toFixed(4)}Â°, ${lngVal.toFixed(4)}Â°`;
+                    }
+                    const teleLoc = document.getElementById('telemetry-location');
+                    if (teleLoc) {
+                        teleLoc.innerHTML = `<i class="fa-solid fa-location-dot" style="color: #06b6d4;"></i> ${locName}`;
+                    }
+                }
+
+                // Core Action: Show location when aeroplane is touched or clicked
+                function showPlaneLocation() {
+                    const coords = vehicleMarker.getLatLng();
+                    const currentLoc = data.current_location || 'Current In-Transit Hub';
+                    const currentStatus = data.status_display || data.status || 'In Transit';
+
+                    // 1. Update text displays
+                    updateLocationDisplays(currentLoc, currentStatus, coords.lat, coords.lng);
+
+                    // 2. Smoothly center map view on aeroplane
+                    map.panTo(coords, { animate: true, duration: 0.5 });
+
+                    // 3. Open Leaflet popup
+                    vehicleMarker.openPopup();
+
+                    // 4. Reveal floating location card on the map
+                    if (planeCard) {
+                        planeCard.classList.add('visible');
+                    }
+
+                    // 5. Highlight telemetry location item with glowing pulse
+                    const teleItem = document.getElementById('telemetry-location-item');
+                    if (teleItem) {
+                        teleItem.classList.remove('location-ping-active');
+                        void teleItem.offsetWidth; // trigger reflow
+                        teleItem.classList.add('location-ping-active');
+                    }
+
+                    // 6. Mobile haptic feedback
+                    if (window.navigator && window.navigator.vibrate) {
+                        try { window.navigator.vibrate(40); } catch(e) {}
+                    }
+
+                    // 7. Live toast notification
+                    showLiveToast(`ðŸ“ Location: ${currentLoc}`);
+                }
+
+                // Listen to Leaflet marker click
+                vehicleMarker.on('click', (e) => {
+                    if (e && e.originalEvent) {
+                        e.originalEvent.stopPropagation();
+                    }
+                    showPlaneLocation();
+                });
+
+                // Attach direct DOM touch listeners to ensure immediate mobile response
+                function bindAeroplaneTouchEvents() {
+                    const markerEl = vehicleMarker.getElement();
+                    if (!markerEl) {
+                        setTimeout(bindAeroplaneTouchEvents, 100);
+                        return;
+                    }
+                    let lastTrigger = 0;
+                    const handleTouch = (e) => {
+                        if (e) {
+                            e.stopPropagation();
+                        }
+                        const now = Date.now();
+                        if (now - lastTrigger < 300) return;
+                        lastTrigger = now;
+                        showPlaneLocation();
+                    };
+
+                    markerEl.addEventListener('click', handleTouch);
+                    markerEl.addEventListener('touchend', handleTouch, { passive: false });
+                    markerEl.addEventListener('pointerup', (e) => {
+                        if (e.pointerType === 'touch') handleTouch(e);
+                    });
+                }
+                bindAeroplaneTouchEvents();
+
+                // Close button handler for floating card
+                if (btnClosePlaneCard && planeCard) {
+                    btnClosePlaneCard.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        planeCard.classList.remove('visible');
+                    });
+                    btnClosePlaneCard.addEventListener('touchend', (e) => {
+                        e.stopPropagation();
+                        planeCard.classList.remove('visible');
+                    });
+                }
+
+                // Also allow clicking header hint pill or telemetry location to show location
+                const planeHintPill = document.getElementById('plane-hint-pill');
+                if (planeHintPill) {
+                    planeHintPill.addEventListener('click', () => {
+                        showPlaneLocation();
+                    });
+                }
+                const teleLocationItem = document.getElementById('telemetry-location-item');
+                if (teleLocationItem) {
+                    teleLocationItem.addEventListener('click', () => {
+                        showPlaneLocation();
+                    });
+                }
 
                 // Collect waypoints for route polyline
                 const waypoints = [originCoords];
@@ -587,16 +764,20 @@
                         const newEventsAdded = (syncData.events.length > lastEventsCount);
 
                         if (hasMoved || statusChanged || newEventsAdded) {
+                            data.current_location = syncData.current_location;
+                            data.status = syncData.status;
+                            data.status_display = syncData.status_display;
+                            data.current_coords = syncData.current_coords;
+
                             // Smoothly move vehicle marker
                             vehicleMarker.setLatLng([newLat, newLng]);
-                            vehicleMarker.getPopup().setContent(`<b>Current Location</b><br>${syncData.current_location}<br>Status: <strong>${syncData.status_display}</strong>`);
+                            vehicleMarker.getPopup().setContent(buildFlightPopupHtml(syncData.current_location, syncData.status_display, newLat, newLng));
 
-                            // Update telemetry values
-                            const teleLoc = document.getElementById('telemetry-location');
-                            if (teleLoc) teleLoc.innerHTML = `<i class="fa-solid fa-location-dot" style="color: #06b6d4;"></i> ${syncData.current_location}`;
+                            // Update floating location card and telemetry
+                            updateLocationDisplays(syncData.current_location, syncData.status_display, newLat, newLng);
 
                             const teleStat = document.getElementById('telemetry-status');
-                            if (teleStat) teleStat.innerHTML = `<i class="fa-solid fa-truck-fast"></i> ${syncData.status_display}`;
+                            if (teleStat) teleStat.innerHTML = `<i class="fa-solid fa-plane"></i> ${syncData.status_display}`;
 
                             // Update status badge on page
                             const badge = document.querySelector('.tracking-status-section .status-badge');

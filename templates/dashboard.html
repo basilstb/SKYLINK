@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Link Express Service</title>
+    <title>Admin Dashboard | Sky Link Express Service</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -22,6 +22,10 @@
             <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-links">
                 <li><a href="{% url 'index' %}">View Site</a></li>
+                <li>
+                    <button type="button" id="open-password-modal" onclick="document.getElementById('password-modal').classList.add('open')"
+                        style="background:none; border:none; color:white; cursor:pointer; font-family:inherit; font-size:1rem;"><i class="fa-solid fa-key"></i> Change Password</button>
+                </li>
                 <li>
                     <form action="{% url 'logout' %}" method="post" style="display:inline;">
                         {% csrf_token %}
@@ -524,7 +528,7 @@
                 <div class="receipt-container">
                     <div class="header">
                         <div class="logo">
-                            Link<span>Express</span>
+                            Sky Link<span>Express</span>
                         </div>
                         <div class="receipt-title">
                             <h1>RECEIPT</h1>
@@ -568,7 +572,7 @@
                     </div>
                     
                     <div class="footer">
-                        <p>Thank you for choosing Link Express Service.</p>
+                        <p>Thank you for choosing Sky Link Express Service.</p>
                         <p>Track your shipment at www.expresslogistics.com</p>
                     </div>
                 </div>
@@ -605,7 +609,7 @@
             <div class="receipt-container" style="font-family: 'Inter', sans-serif; color: #0b0f19; padding: 40px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
                     <div class="logo" style="font-size: 2rem; font-weight: 800; color: #0b0f19;">
-                        Link<span style="color: #06b6d4;">Express</span>
+                        Sky Link<span style="color: #06b6d4;"> Express</span>
                     </div>
                     <div class="receipt-title" style="text-align: right;">
                         <h1 style="margin: 0; color: #06b6d4; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">RECEIPT</h1>
@@ -651,7 +655,7 @@
                 </div>
                 
                 <div class="footer" style="text-align: center; margin-top: 50px; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; padding-top: 20px;">
-                    <p style="font-family: 'Inter', sans-serif;">Thank you for choosing Link Express Service.</p>
+                    <p style="font-family: 'Inter', sans-serif;">Thank you for choosing Sky Link Express Service.</p>
                     <p style="font-family: 'Inter', sans-serif;">Track your shipment at www.expresslogistics.com</p>
                 </div>
             </div>
@@ -690,7 +694,7 @@
             <div class="receipt-container" style="font-family: 'Inter', sans-serif; color: #0b0f19; padding: 40px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                 <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 20px; margin-bottom: 30px;">
                     <div class="logo" style="font-size: 2rem; font-weight: 800; color: #0b0f19;">
-                        Link<span style="color: #06b6d4;">Express</span>
+                        Sky Link<span style="color: #06b6d4;"> Express</span>
                     </div>
                     <div class="receipt-title" style="text-align: right;">
                         <h1 style="margin: 0; color: #06b6d4; font-size: 2.5rem; text-transform: uppercase; letter-spacing: 2px; font-family: 'Inter', sans-serif;">RECEIPT</h1>
@@ -736,7 +740,7 @@
                 </div>
                 
                 <div class="footer" style="text-align: center; margin-top: 50px; color: #64748b; font-size: 0.9rem; border-top: 1px solid #e2e8f0; padding-top: 20px;">
-                    <p style="font-family: 'Inter', sans-serif;">Thank you for choosing Link Express Service.</p>
+                    <p style="font-family: 'Inter', sans-serif;">Thank you for choosing Sky Link Express Service.</p>
                     <p style="font-family: 'Inter', sans-serif;">Track your shipment at www.expresslogistics.com</p>
                 </div>
             </div>
@@ -755,12 +759,29 @@
     }
 </script>
 {% endverbatim %}
+<script src="{% static 'script.js' %}"></script>
+<div id="password-modal" class="pw-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="pw-modal-card">
+        <h3 style="margin-bottom: 6px; color: #0f172a;"><i class="fa-solid fa-lock" style="color:#6366f1;"></i> Change Password</h3>
+        <p style="color:#64748b; font-size:0.9rem; margin-bottom:18px;">Update your administrator password. You will stay logged in.</p>
+        <form action="{% url 'change_password' %}" method="POST" id="password-form">
+            {% csrf_token %}
+            <input type="password" name="old_password" placeholder="Current password" required autocomplete="current-password" class="pw-input">
+            <input type="password" name="new_password1" placeholder="New password (min 8 characters)" required autocomplete="new-password" class="pw-input">
+            <input type="password" name="new_password2" placeholder="Confirm new password" required autocomplete="new-password" class="pw-input">
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button type="submit" class="btn-primary" style="flex:1; justify-content:center;">Update Password</button>
+                <button type="button" onclick="document.getElementById('password-modal').classList.remove('open')" style="flex:1; padding:12px; border:1px solid #cbd5e1; background:#fff; border-radius:8px; cursor:pointer; font-family:inherit;">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
 <footer>
     <div class="container footer-content">
         <div class="footer-logo">
             <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Express<span class="gradient-brand">Admin</span>
         </div>
-        <p>&copy; 2026 Link Express Service Prototype. All rights reserved.</p>
+        <p>&copy; 2026 Sky Link Express Service Prototype. All rights reserved.</p>
     </div>
 </footer>
 </body>

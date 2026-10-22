@@ -1,11 +1,11 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Express Service | Next-Gen Global Logistics & Telemetry</title>
+    <title>Sky Link Express Service | Next-Gen Global Logistics & Telemetry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <a href="{% url 'index' %}" class="logo">
-                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
+                <i class="fa-solid fa-plane-departure" style="color: var(--accent-cyan);"></i> Sky Link<span class="gradient-brand"> Express</span>
             </a>
             <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
             <ul class="nav-links">
@@ -29,7 +29,7 @@
                 <li><a href="#security">Security</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com" target="_blank" style="color: var(--accent-cyan);">
+                    <a href="mailto:info@skylinkcustomerservice.com" target="_blank" style="color: var(--accent-cyan);">
                         <i class="fa-solid fa-envelope"></i> Contact Us
                     </a>
                 </li>
@@ -41,25 +41,25 @@
                     </div>
                     <ul class="lang-menu" style="max-height: 300px; overflow-y: auto;">
                         <li onclick="changeLang('English')">English</li>
-                        <li onclick="changeLang('Russian')">Русский</li>
+                        <li onclick="changeLang('Russian')">Ð ÑƒÑÑÐºÐ¸Ð¹</li>
                         <li onclick="changeLang('German')">Deutsch</li>
-                        <li onclick="changeLang('Spanish')">Español</li>
-                        <li onclick="changeLang('French')">Français</li>
-                        <li onclick="changeLang('Chinese')">中文</li>
-                        <li onclick="changeLang('Arabic')">العربية</li>
-                        <li onclick="changeLang('Hindi')">हिन्दी</li>
-                        <li onclick="changeLang('Portuguese')">Português</li>
-                        <li onclick="changeLang('Japanese')">日本語</li>
-                        <li onclick="changeLang('Korean')">한국어</li>
+                        <li onclick="changeLang('Spanish')">EspaÃ±ol</li>
+                        <li onclick="changeLang('French')">FranÃ§ais</li>
+                        <li onclick="changeLang('Chinese')">ä¸­æ–‡</li>
+                        <li onclick="changeLang('Arabic')">Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</li>
+                        <li onclick="changeLang('Hindi')">à¤¹à¤¿à¤¨à¥à¤¦à¥€</li>
+                        <li onclick="changeLang('Portuguese')">PortuguÃªs</li>
+                        <li onclick="changeLang('Japanese')">æ—¥æœ¬èªž</li>
+                        <li onclick="changeLang('Korean')">í•œêµ­ì–´</li>
                         <li onclick="changeLang('Italian')">Italiano</li>
                         <li onclick="changeLang('Dutch')">Nederlands</li>
-                        <li onclick="changeLang('Turkish')">Türkçe</li>
-                        <li onclick="changeLang('Vietnamese')">Tiếng Việt</li>
+                        <li onclick="changeLang('Turkish')">TÃ¼rkÃ§e</li>
+                        <li onclick="changeLang('Vietnamese')">Tiáº¿ng Viá»‡t</li>
                         <li onclick="changeLang('Polish')">Polski</li>
                         <li onclick="changeLang('Indonesian')">Bahasa Indonesia</li>
-                        <li onclick="changeLang('Thai')">ไทย</li>
+                        <li onclick="changeLang('Thai')">à¹„à¸—à¸¢</li>
                         <li onclick="changeLang('Swedish')">Svenska</li>
-                        <li onclick="changeLang('Greek')">Ελληνικά</li>
+                        <li onclick="changeLang('Greek')">Î•Î»Î»Î·Î½Î¹ÎºÎ¬</li>
                     </ul>
                 </li>
             </ul>
@@ -86,21 +86,13 @@
                         <form id="tracking-form" action="{% url 'tracking' %}" method="GET">
                             <div class="input-group" style="background: rgba(255, 255, 255, 0.95);">
                                 <i class="fa-solid fa-box" style="color: var(--accent-color);"></i>
-                                <input type="text" name="id" id="tracking-number" placeholder="Enter Tracking Number (e.g., EXL-884920)" required autocomplete="off">
+                                <input type="text" name="id" id="tracking-number" placeholder="Enter Tracking Number..." required autocomplete="off">
                                 <button type="submit" class="btn-primary">
                                     <span>Track Shipment</span>
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </button>
                             </div>
                         </form>
-
-                        <!-- Quick-Test Demo Chips -->
-                        <div class="quick-chips-wrapper">
-                            <span><i class="fa-solid fa-bolt" style="color: var(--accent-cyan); margin-right: 4px;"></i> Try Sample ID:</span>
-                            <button type="button" class="quick-chip" onclick="fillTracking('EXL-884920')">EXL-884920 (Air Freight)</button>
-                            <button type="button" class="quick-chip" onclick="fillTracking('EXL-789456')">EXL-789456 (In Transit)</button>
-                            <button type="button" class="quick-chip" onclick="fillTracking('EXL-902184')">EXL-902184 (Delivered)</button>
-                        </div>
                     </div>
 
                     <!-- Enterprise Trust Metrics -->
@@ -124,16 +116,16 @@
                     </div>
                 </div>
 
-                <!-- Right: High-End 3D Visual Showcase Card -->
+                <!-- Right: Realistic Commercial Logistics Showcase Card -->
                 <div class="hero-visual-col">
                     <div class="hero-visual-card">
-                        <img src="{% static 'assets/fintech_hero.jpg' %}" alt="Link Express Global Telemetry Network">
+                        <img src="{% static 'assets/fintech_hero.jpg' %}?v={% now 'U' %}" alt="Sky Link Express Service Global Air Cargo Fleet">
                         <div class="hero-visual-footer">
                             <div class="live-signal-indicator">
-                                <i class="fa-solid fa-satellite-dish"></i>
-                                <span>LIVE SATELLITE TELEMETRY</span>
+                                <i class="fa-solid fa-plane-departure"></i>
+                                <span>GLOBAL AIR CARGO FLEET</span>
                             </div>
-                            <span class="ticker-status live">ACTIVE FEED</span>
+                            <span class="ticker-status live">ACTIVE DISPATCH</span>
                         </div>
                     </div>
                 </div>
@@ -188,52 +180,52 @@
         </div>
     </section>
 
-    <!-- Services Section (Updated with 3D Visual Assets) -->
+    <!-- Services Section (Commercial Express & Freight) -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
-                <div class="card-badge-pill"><i class="fa-solid fa-layer-group"></i> Institutional Capabilities</div>
-                <h2>Autonomous Freight & Delivery Modes</h2>
+                <div class="card-badge-pill"><i class="fa-solid fa-layer-group"></i> Global Transport Services</div>
+                <h2>Commercial Express & Freight Modes</h2>
                 <p>Engineered for high-value velocity, multi-modal routing, and zero-compromise precision.</p>
             </div>
 
             <div class="services-grid">
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_plane.png' %}" alt="Air Freight Scramjet Telemetry">
+                        <img src="{% static 'assets/express_plane.png' %}?v={% now 'U' %}" alt="Global Express Air Freight Cargo Plane">
                     </div>
                     <div class="card-content">
                         <div class="card-badge-pill" style="color: #38bdf8; border-color: rgba(56, 189, 248, 0.3);">
-                            <i class="fa-solid fa-plane"></i> Mach 4.2 Velocity
+                            <i class="fa-solid fa-plane"></i> Priority Air Cargo
                         </div>
-                        <h3>Supersonic Air Freight</h3>
-                        <p>Ultra-fast intercontinental air transport equipped with continuous avionics satellite telemetry for mission-critical cargo.</p>
+                        <h3>Global Express Air Freight</h3>
+                        <p>Next-flight-out priority international air cargo with continuous GPS avionics tracking and dedicated airport-to-airport customs transit.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_ship.png' %}" alt="Autonomous Ocean Freight">
+                        <img src="{% static 'assets/express_ship.png' %}?v={% now 'U' %}" alt="Ocean Container Cargo Shipping">
                     </div>
                     <div class="card-content">
                         <div class="card-badge-pill" style="color: #06b6d4; border-color: rgba(6, 182, 212, 0.3);">
-                            <i class="fa-solid fa-ship"></i> Smart Maritime
+                            <i class="fa-solid fa-ship"></i> Ocean Freight
                         </div>
-                        <h3>Autonomous Ocean Freight</h3>
-                        <p>Cost-effective global maritime logistics powered by autonomous navigational grids and smart climate-regulated container units.</p>
+                        <h3>Ocean Container Shipping</h3>
+                        <p>Cost-effective Full Container Load (FCL) and Less than Container Load (LCL) maritime shipping with climate-regulated cargo security.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_van.png' %}" alt="Electric Ground Delivery">
+                        <img src="{% static 'assets/express_van.png' %}?v={% now 'U' %}" alt="Express Ground Courier Delivery Fleet">
                     </div>
                     <div class="card-content">
                         <div class="card-badge-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
-                            <i class="fa-solid fa-leaf"></i> Zero Net Emissions
+                            <i class="fa-solid fa-truck-fast"></i> Rapid Dispatch
                         </div>
-                        <h3>Electric Ground Courier</h3>
-                        <p>High-efficiency urban distribution fleet with algorithmic dispatch, intelligent routing HUDs, and rapid localized turnaround.</p>
+                        <h3>Express Ground Fleet</h3>
+                        <p>Dedicated modern delivery vans providing scheduled same-day metropolitan delivery, scheduled pickups, and rapid regional distribution.</p>
                     </div>
                 </div>
             </div>
@@ -254,9 +246,9 @@
                 <div class="currency-selector-bar">
                     <span style="font-size: 0.85rem; font-weight: 700; color: #64748b; margin-right: 6px;">SELECT CURRENCY:</span>
                     <button type="button" class="currency-btn active" data-currency="USD" onclick="setCurrency('USD')">USD ($)</button>
-                    <button type="button" class="currency-btn" data-currency="EUR" onclick="setCurrency('EUR')">EUR (€)</button>
-                    <button type="button" class="currency-btn" data-currency="GBP" onclick="setCurrency('GBP')">GBP (£)</button>
-                    <button type="button" class="currency-btn" data-currency="JPY" onclick="setCurrency('JPY')">JPY (¥)</button>
+                    <button type="button" class="currency-btn" data-currency="EUR" onclick="setCurrency('EUR')">EUR (â‚¬)</button>
+                    <button type="button" class="currency-btn" data-currency="GBP" onclick="setCurrency('GBP')">GBP (Â£)</button>
+                    <button type="button" class="currency-btn" data-currency="JPY" onclick="setCurrency('JPY')">JPY (Â¥)</button>
                 </div>
 
                 <!-- Input Controls Grid -->
@@ -310,7 +302,7 @@
                         <div class="rate-meta" id="calc-meta-details">Base Freight: $144.00 &bull; Automated Clearance: $42.00 &bull; Telemetry: $0 (Included)</div>
                     </div>
                     <div>
-                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com&su=Freight+Dispatch+Reservation" target="_blank" class="btn-primary" style="padding: 14px 28px;">
+                        <a href="mailto:info@skylinkcustomerservice.com?subject=Freight+Dispatch+Reservation" target="_blank" class="btn-primary" style="padding: 14px 28px;">
                             <span>Book Consignment</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </a>
@@ -320,52 +312,52 @@
         </div>
     </section>
 
-    <!-- Operations Section (Updated with 3D Visual Assets) -->
+    <!-- Operations Section (Professional Fulfillment & Doorstep Delivery) -->
     <section id="operations" class="services" style="background: var(--bg-light);">
         <div class="container">
             <div class="section-header">
-                <div class="card-badge-pill"><i class="fa-solid fa-fingerprint"></i> High-Assurance Operations</div>
-                <h2>Encrypted Custody & Fulfillment</h2>
-                <p>End-to-end cryptographic accountability across all physical and digital transit touchpoints.</p>
+                <div class="card-badge-pill"><i class="fa-solid fa-boxes-packing"></i> Professional Fulfillment</div>
+                <h2>Secure Custody & Last-Mile Operations</h2>
+                <p>Complete physical security, barcoded sorting, and verified door-to-door handovers at every transit touchpoint.</p>
             </div>
 
             <div class="services-grid">
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_package.png' %}" alt="Quantum Encrypted Packaging">
+                        <img src="{% static 'assets/express_package.png' %}?v={% now 'U' %}" alt="Barcode Scanned Express Parcel Packaging">
                     </div>
                     <div class="card-content">
                         <div class="card-badge-pill" style="color: #6366f1; border-color: rgba(99, 102, 241, 0.3);">
-                            <i class="fa-solid fa-lock"></i> Biometric Seal
+                            <i class="fa-solid fa-barcode"></i> Scanned Parcels
                         </div>
-                        <h3>Tamper-Proof Smart Packaging</h3>
-                        <p>Every consignment is protected with RFID cryptographic sensors and biometric seals that report real-time integrity status.</p>
+                        <h3>Secure Express Packaging</h3>
+                        <p>Reinforced tamper-evident packaging, multi-point barcode scanning, and fragile-certified handling for all express consignments.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_carrying.png' %}" alt="Automated AI Robotics Hub">
+                        <img src="{% static 'assets/express_carrying.png' %}?v={% now 'U' %}" alt="Modern Logistics Sorting & Distribution Center">
                     </div>
                     <div class="card-content">
                         <div class="card-badge-pill" style="color: #06b6d4; border-color: rgba(6, 182, 212, 0.3);">
-                            <i class="fa-solid fa-robot"></i> AI Orchestration
+                            <i class="fa-solid fa-warehouse"></i> Strategic Terminals
                         </div>
-                        <h3>Automated Robotic Hubs</h3>
-                        <p>Robotic sorting facilities process tens of thousands of packages per hour with sub-millimeter precision and zero misroutes.</p>
+                        <h3>Modern Logistics Hubs</h3>
+                        <p>High-capacity regional distribution centers and mechanized sorting lines processing thousands of shipments per hour with zero delays.</p>
                     </div>
                 </div>
 
                 <div class="service-card">
                     <div class="card-img">
-                        <img src="{% static 'assets/express_delivering.png' %}" alt="Cryptographic Last-Mile Verification">
+                        <img src="{% static 'assets/express_delivering.png' %}?v={% now 'U' %}" alt="Professional Courier Doorstep Delivery">
                     </div>
                     <div class="card-content">
                         <div class="card-badge-pill" style="color: #10b981; border-color: rgba(16, 185, 129, 0.3);">
-                            <i class="fa-solid fa-signature"></i> Digital Attestation
+                            <i class="fa-solid fa-handshake"></i> Direct Handover
                         </div>
-                        <h3>Verified Last-Mile Handover</h3>
-                        <p>Couriers execute cryptographic digital handovers with instant photo and biometric verification pushed directly to your ledger.</p>
+                        <h3>Verified Doorstep Delivery</h3>
+                        <p>Courteous, uniformed couriers providing friendly, reliable front-door delivery with real-time electronic signature confirmation.</p>
                     </div>
                 </div>
             </div>
@@ -443,7 +435,7 @@
             <div class="faq-container">
                 <div class="faq-item active">
                     <div class="faq-header" onclick="toggleFaq(this)">
-                        <h3>How does real-time satellite telemetry work on Link Express?</h3>
+                        <h3>How does real-time satellite telemetry work on Sky Link Express Service?</h3>
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="faq-body">
@@ -477,7 +469,7 @@
                         <i class="fa-solid fa-chevron-down"></i>
                     </div>
                     <div class="faq-body">
-                        Yes. Through our integrated fintech clearinghouse, you can quote, invoice, and settle freight charges in USD ($), EUR (€), GBP (£), JPY (¥), or select institutional digital assets with guaranteed foreign exchange locks.
+                        Yes. Through our integrated fintech clearinghouse, you can quote, invoice, and settle freight charges in USD ($), EUR (â‚¬), GBP (Â£), JPY (Â¥), or select institutional digital assets with guaranteed foreign exchange locks.
                     </div>
                 </div>
             </div>
@@ -488,7 +480,7 @@
     <footer>
         <div class="container footer-content">
             <div class="footer-logo" style="font-size: 1.8rem;">
-                <i class="fa-solid fa-bolt-lightning" style="color: var(--accent-cyan);"></i> Link<span class="gradient-brand">Express</span>
+                <i class="fa-solid fa-plane-departure" style="color: var(--accent-cyan);"></i> Sky Link<span class="gradient-brand"> Express</span>
             </div>
             <div style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #94a3b8;">
                 <span class="pulse-dot" style="background-color: #10b981; width: 8px; height: 8px;"></span>
@@ -497,13 +489,13 @@
             <div class="contact-info" style="margin: 10px 0;">
                 <p>
                     <i class="fa-solid fa-envelope" style="color: var(--accent-cyan); margin-right: 8px;"></i>
-                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=linkexpressservice@gmail.com" target="_blank" style="color: var(--text-light); text-decoration: none;">
-                        linkexpressservice@gmail.com
+                    <a href="mailto:info@skylinkcustomerservice.com" target="_blank" style="color: var(--text-light); text-decoration: none;">
+                        info@skylinkcustomerservice.com
                     </a>
                 </p>
             </div>
             <p style="font-size: 0.85rem; color: #64748b;">
-                &copy; 2026 Link Express Service &bull; Global Autonomous Logistics &bull; All rights reserved.
+                &copy; 2026 Sky Link Express Service &bull; Global Autonomous Logistics &bull; All rights reserved.
             </p>
         </div>
     </footer>

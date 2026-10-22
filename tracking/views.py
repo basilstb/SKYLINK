@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import JsonResponse
 from django.utils import timezone
 from .models import Shipment, TrackingEvent
@@ -122,6 +124,21 @@ def api_shipment_live(request, tracking_id):
 def dashboard(request):
     shipments = Shipment.objects.all().order_by('-registered_date')
     return render(request, 'dashboard.html', {'shipments': shipments})
+
+@login_required
+def change_password(request):
+    """Lets the logged-in admin change their own password without being logged out."""
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password updated successfully.')
+        else:
+            for errors in form.errors.values():
+                for error in errors:
+                    messages.error(request, f'Password not changed: {error}')
+    return redirect('dashboard')
 
 @login_required
 def create_shipment(request):
