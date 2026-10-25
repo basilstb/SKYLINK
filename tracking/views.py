@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -7,6 +8,8 @@ from django.http import JsonResponse
 from django.utils import timezone
 from .models import Shipment, TrackingEvent
 from .geocoding import resolve_coordinates
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     return render(request, 'index.html')
@@ -28,7 +31,11 @@ def get_shipment_by_id(tracking_id):
 def tracking(request):
     raw_id = request.GET.get('id')
     tracking_id = raw_id.strip() if raw_id else None
-    shipment = get_shipment_by_id(tracking_id)
+    try:
+        shipment = get_shipment_by_id(tracking_id)
+    except Exception:
+        logger.exception("Tracking lookup failed for %r", tracking_id)
+        raise
     return render(request, 'tracking.html', {'shipment': shipment, 'tracking_id': tracking_id})
 
 def api_shipment_live(request, tracking_id):
@@ -37,6 +44,13 @@ def api_shipment_live(request, tracking_id):
     Returns live coordinates, status, route waypoints, and event history.
     100% compatible with PythonAnywhere free tier via HTTP polling.
     """
+    try:
+        return _build_live_response(tracking_id)
+    except Exception:
+        logger.exception("Live tracking API failed for %r", tracking_id)
+        return JsonResponse({'success': False, 'error': 'Internal error'}, status=500)
+
+def _build_live_response(tracking_id):
     shipment = get_shipment_by_id(tracking_id)
     if not shipment:
         return JsonResponse({'success': False, 'error': 'Shipment not found'}, status=404)
@@ -65,7 +79,8 @@ def api_shipment_live(request, tracking_id):
         'exception': 40,
         'Delayed': 40,
     }
-    progress_percent = progress_map.get(shipment.status, progress_map.get(shipment.status.lower().replace(' ', '_'), 50))
+    status_str = shipment.status or ''
+    progress_percent = progress_map.get(status_str, progress_map.get(status_str.lower().replace(' ', '_'), 50))
 
     # Build history events with coordinates
     events_data = []
@@ -78,7 +93,7 @@ def api_shipment_live(request, tracking_id):
         events_data.append({
             'status': ev.status,
             'location': ev.location,
-            'timestamp': ev.timestamp.strftime("%b %d, %Y - %H:%M"),
+            'timestamp': ev.timestamp.strftime("%b %d, %Y - %H:%M") if ev.timestamp else '',
             'lat': ev_lat,
             'lng': ev_lng,
         })

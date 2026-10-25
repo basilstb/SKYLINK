@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'express_project.middleware.AutoMigrateMiddleware',
     'express_project.middleware.DomainRedirectMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -144,6 +145,21 @@ LOGOUT_REDIRECT_URL = '/'
 # Existing migrations use BigAutoField. Pin it so Django 5.x (server) and
 # Django 6.x (local) agree and no spurious migrations are detected.
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Always write errors (including full 500 tracebacks) to stderr so they show up
+# in the hosting provider's error log (PythonAnywhere "Error log" / Render "Logs").
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler'},
+    },
+    'loggers': {
+        'django.request': {'handlers': ['console'], 'level': 'ERROR', 'propagate': False},
+        'tracking': {'handlers': ['console'], 'level': 'INFO', 'propagate': False},
+        'express_project': {'handlers': ['console'], 'level': 'INFO', 'propagate': False},
+    },
+}
 
 # Production security hardening (only when DEBUG is off, so local HTTP dev still works)
 if not DEBUG:
